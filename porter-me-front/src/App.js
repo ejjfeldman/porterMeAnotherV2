@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
-import axios from 'axios';
-import {Switch, Route, Link} from 'react-router-dom';
+// import axios from 'axios';
+import {Switch, Route} from 'react-router-dom';
 
-import BeerButton from './components/BeerButton/BeerButton';
-import Modal from './components/Modal/Modal';
+// import BeerButton from './components/BeerButton/BeerButton';
+// import Modal from './components/Modal/Modal';
 import Header from './components/Header/Header';
 import BeerForm from './components/BeerForm/BeerForm';
 import BeerSearch from './BeerSearch/BeerSearch';

@@ -22,6 +22,7 @@ app.use(bodyParser.json())
 
 //fetching random beer
 app.get('/randombeer', (req, res)=>{
+    console.log(req.body)
     axios.get('http://api.brewerydb.com/v2/beer/random?key='+ key.breweryKey)
     .then(response=>{
         // console.log(response.data)
@@ -32,6 +33,7 @@ app.get('/randombeer', (req, res)=>{
 })
 //fetching specific beer
 app.post('/my-beer', (req, res)=>{
+    console.log(req, "req")
     let formResults = req.body.formResults;
     console.log("Type", formResults.Type)
     let pageNumber = Math.floor(Math.random()*10);
@@ -44,6 +46,25 @@ app.post('/my-beer', (req, res)=>{
         res.send(specificBeer)
     })
 
+})
+
+//fetching random beer
+app.post('/findbeer', (req, res)=>{
+    let beerToLocate = req.body.locatebeer;
+    console.log(beerToLocate)
+    axios.get('http://lcboapi.com/products?q='+beerToLocate+'&access_key=' + key.lcboKey)
+    .then(response=>{
+        console.log(response.data)
+        if(response.data.pager.total_record_count == 0){
+            let beerSuggestion = response.data.suggestion
+            res.send(beerSuggestion)
+        }else{
+            res.send(response.data)
+        }
+        // const locationFound = response.data
+        // res.send(locationFound)
+    })
+    console.log("finding location")
 })
 
 

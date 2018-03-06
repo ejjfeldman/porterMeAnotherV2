@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import "./BeerSearch.css";
 import axios from "axios";
-import { Switch, Route, Link } from "react-router-dom";
+// import { Switch, Route, Link } from "react-router-dom";
 
 import BeerButton from "../components/BeerButton/BeerButton";
 import Modal from "../components/Modal/Modal";
-import Header from "../components/Header/Header";
-import BeerForm from "../components/BeerForm/BeerForm";
+// import Header from "../components/Header/Header";
+// import BeerForm from "../components/BeerForm/BeerForm";
 import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 
 class BeerSearch extends Component {
@@ -36,7 +36,7 @@ class BeerSearch extends Component {
 
   render() {
     let beerDisplayResult = null;
-    let displayBeer = null;
+    // let displayBeer = null;
     let beerName = null;
     let beerAbv = null;
     let beerDescription = null;
@@ -80,6 +80,8 @@ class BeerSearch extends Component {
             <strong>IBU: </strong>
             {beerIbu}
           </p>
+          <button className="formButton" onClick={this.closeResults}>Start Over</button>
+          {/* <button className="formButton" onClick={()=>this.findLocation(beerName)}>Find it</button> */}
         </div>
       );
       console.log(this.state.randomBeer);
@@ -100,7 +102,7 @@ class BeerSearch extends Component {
       screenDisplay = (
         <div>
 
-          <h1>Getting Loaded</h1>
+          <h1>Waiting To Get Loaded</h1>
           <LoadingSpinner />
         </div>
       );

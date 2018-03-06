@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Input from "../Input/Input";
-import Modal from "../Modal/Modal";
+// import Modal from "../Modal/Modal";
 import "./BeerForm.css";
-import Backdrop from '../Backdrop/Backdrop';
+// import Backdrop from '../Backdrop/Backdrop';
 import Aux from '../Aux';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
@@ -58,7 +58,8 @@ class BeerForm extends Component {
     },
     loading: false,
     oneBeer: "",
-    groupedData: ""
+    groupedData: "",
+    isAvailable: ""
   };
 
   orderHandler = event => {
@@ -88,7 +89,11 @@ class BeerForm extends Component {
   };
 
   findSpecificBeer(dataGrouped) {
-    this.setState({ loading: true });    
+    console.log(dataGrouped)
+    this.setState({ 
+      loading: true,
+      groupedData: dataGrouped
+     });    
     axios.post("/my-beer", { formResults: dataGrouped }).then(response => {
       console.log(response.data);
       let beerArray = response.data;
@@ -158,7 +163,7 @@ class BeerForm extends Component {
     // updatedFormElements.value = "";
 
 
-    
+     
     // console.log(event, "event")
     // console.log(inputIdentifier, "inputIdentifier")
     // const updatedBeerForm = {
@@ -173,9 +178,32 @@ class BeerForm extends Component {
     // console.log(this.state.formValues);
   }
 
+  findLocation=(beer)=>{
+    console.log(beer)
+    axios.post("/findbeer", {locatebeer: beer})
+    .then(response => {
+      console.log(response.data);
+      if(!response.data.pager){
+        let resultBeer = response.data.charAt(0).toUpperCase()+response.data.slice(1)
+        console.log(resultBeer)
+         this.setState({
+        isAvailable: resultBeer
+          })
+      }else{
+        console.log('found in lcbo')
+      }
+      
+
+    
+     
+
+    });
+    
+  }
+
   render() {
     const formElementsArray = [];
-    let beerStyle = '';
+    // let beerStyle = '';
     let form = null;
     for (let key in this.state.formValues) {
       formElementsArray.push({
@@ -191,8 +219,11 @@ class BeerForm extends Component {
     //   beerStyle="undefined"
     // }
     if(this.state.oneBeer){
+      if(!this.state.isAvailable){
         form= (
           <div className="refineForm">
+            <button className="closeButton" onClick={this.closeForm}>X</button>
+          
             <div className="beerRefineResult">
                 <h3>We found you the perfect beer!</h3>
                 <h2>{this.state.oneBeer.name}</h2>
@@ -201,14 +232,27 @@ class BeerForm extends Component {
                 <p>{this.state.oneBeer.description}</p>
                 
                 <button className="formButton" onClick={this.closeForm}>Start Over</button>
-                <button className="formButton">Same Story, Different Beer</button>
+                <button className="formButton" onClick={()=>this.findSpecificBeer(this.state.groupedData)}>Same Story, Different Beer</button>
+                <button className="formButton" onClick={()=>this.findLocation(this.state.oneBeer.name)}>Find it</button>
+
                 </div>
             </div>
             )
+      }else{
+        form=(
+          <div className="refineForm">
+            <button className="closeButton" onClick={this.closeForm}>X</button>          
+          <h3>Unfortunately the beer you are looking for is not available in the LCBO</h3>
+          <h4>Can we recommend "{this.state.isAvailable}" instead?</h4>
+</div>
+        )
+        
+      }
+        
     }else if(this.state.loading){
       form=(
         <div>
-          <h1>Getting Loaded</h1>
+          <h1>Waiting To Get Loaded</h1>
           <LoadingSpinner />
         </div>
       )
@@ -242,12 +286,11 @@ class BeerForm extends Component {
     return (
         <Aux>
         {/* <Backdrop show clicked={this.closeForm}/> */}
-      {/* <div className="refineForm"> */}
        
         {/* <Modal show modalClosed={this.closeForm}> */}
         {form}
+        
         {/* </Modal> */}
-      {/* </div> */}
       </Aux>
     );
   }

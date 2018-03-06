@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import cap from '../../cap.png';
 
 import {Link} from 'react-router-dom';

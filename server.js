@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
 const axios = require('axios');
+let key = require('./key');
 
 // const request = require('request');
 
@@ -21,7 +22,7 @@ app.use(bodyParser.json())
 
 //fetching random beer
 app.get('/randombeer', (req, res)=>{
-    axios.get('http://api.brewerydb.com/v2/beer/random?key=886020f32c5ab25df360fda42c75e124')
+    axios.get('http://api.brewerydb.com/v2/beer/random?key='+ key.breweryKey)
     .then(response=>{
         // console.log(response.data)
         const randomBeer = response.data.data
@@ -36,7 +37,7 @@ app.post('/my-beer', (req, res)=>{
     let pageNumber = Math.floor(Math.random()*10);
     console.log("Rnadom", pageNumber)
 
-    axios.get('http://api.brewerydb.com/v2/beers/?key=886020f32c5ab25df360fda42c75e124&abv='+formResults.Abv+ "&ibu=" +formResults.Ibu + "&p=" +pageNumber)
+    axios.get('http://api.brewerydb.com/v2/beers/?key='+key.breweryKey+'&abv='+formResults.Abv+ "&ibu=" +formResults.Ibu + "&p=" +pageNumber)
     .then(response=>{
         const specificBeer = response.data.data;
         console.log(response.data)

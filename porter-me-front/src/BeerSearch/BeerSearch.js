@@ -48,7 +48,7 @@ class BeerSearch extends Component {
         beerName = displayBeer.name;
       } else {
         beerName = "Mystery Beer";
-      }
+      } 
       if (displayBeer.abv) {
         beerAbv = displayBeer.abv;
       } else {

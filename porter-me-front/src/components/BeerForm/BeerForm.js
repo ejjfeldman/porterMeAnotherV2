@@ -78,16 +78,17 @@ class BeerForm extends Component {
     axios
       .post("https://beer-data.firebaseio.com/beerSelection.json", dataGrouped)
       .then(response => {
-        this.setState({ loading: false });
+        // this.setState({ loading: false });
         // this.props.history.push('/');
       })
       .catch(error => {
-        this.setState({ loading: false });
+        // this.setState({ loading: false });
       });
     this.findSpecificBeer(dataGrouped.beerData);
   };
 
   findSpecificBeer(dataGrouped) {
+    this.setState({ loading: true });    
     axios.post("/my-beer", { formResults: dataGrouped }).then(response => {
       console.log(response.data);
       let beerArray = response.data;
@@ -106,7 +107,10 @@ class BeerForm extends Component {
       
     let oneBeer = narrowedArray[Math.floor(Math.random() * narrowedArray.length)];
       console.log(oneBeer);
-    this.setState({oneBeer: oneBeer})
+    this.setState({
+      oneBeer: oneBeer,
+      loading: false
+    })
     console.log(this.state.oneBeer, "!")
 
     });
@@ -188,6 +192,7 @@ class BeerForm extends Component {
     // }
     if(this.state.oneBeer){
         form= (
+          <div className="refineForm">
             <div className="beerRefineResult">
                 <h3>We found you the perfect beer!</h3>
                 <h2>{this.state.oneBeer.name}</h2>
@@ -197,12 +202,19 @@ class BeerForm extends Component {
                 
                 <button className="formButton" onClick={this.closeForm}>Start Over</button>
                 <button className="formButton">Same Story, Different Beer</button>
-                
+                </div>
             </div>
             )
+    }else if(this.state.loading){
+      form=(
+        <div>
+          <h1>Getting Loaded</h1>
+          <LoadingSpinner />
+        </div>
+      )
     }else{
         form = (
-            
+          <div className="refineForm">
             <form onSubmit={this.orderHandler} id="specificBeer">
             <button className="closeButton" onClick={this.closeForm}>X</button>
             <div className="formHeader">
@@ -222,6 +234,7 @@ class BeerForm extends Component {
               <button type="submit" className="formButton">Search</button>
               
             </form>
+            </div>
           );
         
     }
@@ -229,12 +242,12 @@ class BeerForm extends Component {
     return (
         <Aux>
         {/* <Backdrop show clicked={this.closeForm}/> */}
-      <div className="refineForm">
+      {/* <div className="refineForm"> */}
        
         {/* <Modal show modalClosed={this.closeForm}> */}
         {form}
         {/* </Modal> */}
-      </div>
+      {/* </div> */}
       </Aux>
     );
   }

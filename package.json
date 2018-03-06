@@ -1,0 +1,22 @@
+{
+  "name": "porter-me-express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix porter-me-front",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "author": "Erin Feldman",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.2",
+    "concurrently": "^3.5.1",
+    "express": "^4.16.2",
+    "nodemon": "^1.15.1"
+  },
+  "devDependencies": {}
+}

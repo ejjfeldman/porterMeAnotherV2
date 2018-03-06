@@ -1,0 +1,372 @@
+.App-header, .jumbotron {
+  background-color: #3E3939;
+  height: 50%;
+  color: white;
+  text-align: center;
+  background-color: transparent;
+  width: 100%;
+  opacity: 0;
+  margin:0;
+  font-size: 24px;
+}
+
+.mainHeader {
+  height: 370px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  top: -90px;
+  width: 80%;
+  max-width: 1060px;
+}
+
+.mainHeader div{ 
+  position: absolute; 
+}
+
+.pour {
+    position: absolute;
+    left: 45%;
+    width: 20px;
+    height: 0px;
+    background-color: #edaf32;
+    border-radius: 10px;
+  }
+  
+  #beaker {
+    border-top: 0;
+    border-radius: 0 0 30px 30px;
+    height: 180px;
+    bottom: 0px;
+    width: 100%;
+  }
+  
+  div#beaker{
+    bottom: 20px;
+  }
+  
+  
+  #liquid {
+    background-color: #edaf32;
+    border-radius: 0 0 20px 20px;
+    bottom: 20px;
+    height: 0px;
+    overflow: hidden;
+    width: 100%;
+    
+  }
+  
+  #liquid:after {
+    background-color: rgba(255, 255, 255, 0.25);
+    bottom: -10px;
+    content: '';
+    height: 200px;
+    left: -40px;
+    position: absolute;
+    transform: rotate(30deg);
+    -webkit-transform: rotate(15deg);
+    width: 110px;
+  }
+  
+  #liquid .bubble {
+    -webkit-animation-name: bubble;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    background-color: rgba(255, 255, 255, 0.2);
+    bottom: 0;
+    border-radius: 10px;
+    height: 20px;
+    width: 20px;
+  }
+  
+  @-webkit-keyframes bubble {
+    0% { bottom: 0; }
+  
+     50% {
+       background-color: rgba(255, 255, 255, 0.2);
+        bottom: 80px;
+     }
+  
+     100% {
+       background-color: rgba(255, 255, 255, 0);
+        bottom: 160px;
+     }
+  }
+  
+  .bubble1 {
+    left: 10px;
+    -webkit-animation-delay: 1000ms;
+    -webkit-animation-duration: 1000ms;
+  }
+  
+  .bubble2 {
+    left: 50px;
+    -webkit-animation-delay: 700ms;
+    -webkit-animation-duration: 1100ms;
+  }
+  
+  .bubble3 {
+    left: 100px;
+    -webkit-animation-delay: 1200ms;
+    -webkit-animation-duration: 1300ms;
+  }
+  
+  .bubble4 {
+    left: 135px;
+    -webkit-animation-delay: 1100ms;
+    -webkit-animation-duration: 700ms;
+  }
+  
+  .bubble5 {
+    left: 175px;
+    -webkit-animation-delay: 1300ms;
+    -webkit-animation-duration: 800ms;
+  }
+  
+  .bubble6 {
+    left: 225px;
+    -webkit-animation-delay: 700ms;
+    -webkit-animation-duration: 900ms;
+  }
+  .bubble7 {
+    left: 265px;
+    -webkit-animation-delay: 1300ms;
+    -webkit-animation-duration: 1100ms;
+  }
+  .bubble8 {
+    left: 280px;
+    -webkit-animation-delay: 1000ms;
+    -webkit-animation-duration: 900ms;
+  }
+  .bubble9 {
+    left: 310px;
+    -webkit-animation-delay: 900ms;
+    -webkit-animation-duration: 700ms;
+  }
+  .bubble10 {
+    left: 345px;
+    -webkit-animation-delay: 1100ms;
+    -webkit-animation-duration: 900ms;
+  }
+  .bubble11 {
+    left: 390px;
+    -webkit-animation-delay: 1200ms;
+    -webkit-animation-duration: 1000ms;
+  }
+  .bubble12 {
+    left: 435px;
+    -webkit-animation-delay: 700ms;
+    -webkit-animation-duration: 800ms;
+  }
+  .bubble13 {
+    left: 525px;
+    -webkit-animation-delay: 1300ms;
+    -webkit-animation-duration: 1000ms;
+  }
+  .bubble14 {
+    left: 580px;
+    -webkit-animation-delay: 1000ms;
+    -webkit-animation-duration: 800ms;
+  }
+  .bubble15 {
+    left: 635px;
+    -webkit-animation-delay: 1200ms;
+    -webkit-animation-duration: 1000ms;
+  }
+  .bubble16 {
+    left: 680px;
+    -webkit-animation-delay: 1000ms;
+    -webkit-animation-duration: 1000ms;
+  }
+  
+  .bubble17 {
+    left: 730px;
+    -webkit-animation-delay: 700ms;
+    -webkit-animation-duration: 1100ms;
+  }
+  
+  .bubble18 {
+    left: 775px;
+    -webkit-animation-delay: 1200ms;
+    -webkit-animation-duration: 1300ms;
+  }
+  
+  .bubble19 {
+    left: 820px;
+    -webkit-animation-delay: 1100ms;
+    -webkit-animation-duration: 700ms;
+  }
+  
+  .bubble20 {
+    left: 860px;
+    -webkit-animation-delay: 1300ms;
+    -webkit-animation-duration: 800ms;
+  }
+  
+  .bubble21 {
+    left: 905px;
+    -webkit-animation-delay: 700ms;
+    -webkit-animation-duration: 900ms;
+  }
+  .bubble22 {
+    left: 950px;
+    -webkit-animation-delay: 1300ms;
+    -webkit-animation-duration: 1100ms;
+  }
+  
+  /* Foam */
+  
+  .beer-foam {
+    position: absolute;
+    bottom: 30px;
+    opacity: 0;
+  }
+  
+  .foam-1, .foam-2, .foam-3, .foam-4, 
+  .foam-5, .foam-6, .foam-7, .foam-8, .foam-9, .foam-10, .foam-11, .foam-12, .foam-13, .foam-14, .foam-15, .foam-16, .foam-17, .foam-18, .foam-19, .foam-20, .foam-21, .foam-22, .foam-23, .foam-24, .foam-25,.foam-26, .foam-27, .foam-28, .foam-29, .foam-30, .foam-31, .foam-32, .foam-33, .foam-34 {
+    float: left;
+    position: absolute;
+    z-index: 999;
+    width: 50px;
+    height: 50px;
+    border-radius: 30px;
+    background-color: #fefefe;
+  
+  }
+  .foam-1 {
+    top: -10px;
+    left: -10px;
+  }
+  .foam-2 {
+    top: -15px;
+    left: 20px; 
+  }
+  .foam-3 {
+    top: -20px;
+    left: 50px; 
+  }
+  .foam-4 {
+    top: -35px;
+    left: 85px; 
+  }
+  .foam-5 {
+    top: -30px;
+    left: 115px; 
+  }
+  .foam-6 {
+    top: -20px;
+    left: 150px; 
+  }
+  .foam-7 {
+    top: -30px;
+    left: 185px;
+  }
+  .foam-8 {
+    top: -30px;
+    left: 220px;
+  }
+  .foam-9 {
+    top: -30px;
+    left: 260px;
+  }
+  .foam-10 {
+    top: -25px;
+    left: 295px;
+  }
+  .foam-11 {
+    top: -35px;
+    left: 320px;
+  }
+  .foam-12 {
+    top: -30px;
+    left: 350px;
+  }
+  .foam-13{
+    top: -20px;
+    left: 380px;
+  }
+  .foam-14 {
+    top: -25px;
+    left: 410px;
+  }
+  .foam-15 {
+    top: -30px;
+    left: 450px;
+  }
+  .foam-16 {
+    top: -30px;
+    left: 480px;
+  }
+  .foam-17 {
+    top: -35px;
+    left: 520px;
+  }
+  .foam-18 {
+    top: -30px;
+    left: 550px;
+  }
+  .foam-19 {
+    top: -30px;
+    left: 585px;
+  }
+  .foam-20 {
+    top: -25px;
+    left: 620px;
+  }
+  .foam-21 {
+    top: -35px;
+    left: 650px;
+  }
+  .foam-22 {
+    top: -30px;
+    left: 690px;
+  }
+  .foam-23{
+    top: -20px;
+    left: 720px;
+  }
+  .foam-24 {
+    top: -25px;
+    left: 755px;
+  }
+  .foam-25 {
+    top: -30px;
+    left: 790px;
+  }
+  .foam-26 {
+    top: -30px;
+    left: 825px;
+  }
+  .foam-27 {
+    top: -35px;
+    left: 850px; 
+  }
+  .foam-28 {
+    top: -25px;
+    left: 885px; 
+  }
+  .foam-29 {
+    top: -35px;
+    left: 915px; 
+  }
+  .foam-30 {
+    top: -30px;
+    left: 940px; 
+  }
+  .foam-31 {
+    top: -20px;
+    left: 965px; 
+  }
+  .foam-32 {
+    top: -30px;
+    left: 985px;
+  }
+  .foam-33 {
+    top: -35px;
+    left: 1000px;
+  }
+  .foam-34 {
+    top: -30px;
+    left: 1020px;
+  }
+  

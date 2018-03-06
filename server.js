@@ -46,13 +46,6 @@ app.post('/my-beer', (req, res)=>{
 
 })
 
-// app.get('http://api.brewerydb.com/v2/beers?key=886020f32c5ab25df360fda42c75e124', (req, res)=>{
-    
-//         console.log(res.data)
-     
-
-// })
-
 
 const port = 5000;
 

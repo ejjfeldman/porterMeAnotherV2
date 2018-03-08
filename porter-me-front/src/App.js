@@ -8,6 +8,8 @@ import {Switch, Route} from 'react-router-dom';
 import Header from './components/Header/Header';
 import BeerForm from './components/BeerForm/BeerForm';
 import BeerSearch from './BeerSearch/BeerSearch';
+import NavBar from './components/NavBar/NavBar';
+import CreateUser from './components/User/CreateUser/CreateUser';
 
 
 class App extends Component {
@@ -48,21 +50,16 @@ class App extends Component {
     // }
     return (
       <div className="App">
+      <NavBar/>
       <Header/>
-      {/* <Header/>
-
-        <BeerButton
-        getRandomBeer={this.getRandom}
-        randomBeer={this.state.randomBeer}/>
-          <BeerResultModal show={this.state.displayResults} modalClosed={this.closeResults} randomBeer={this.state.randomBeer}>
-                   {beerDisplayResult}
-          </BeerResultModal>
-          <Link to='/refine-beer'>Refine</Link> */}
     
         <Switch>
           <Route path="/refine-beer" component={BeerForm}/>
            {/* <Route path="/orders" component={Orders}/> */}
+           <Route path="/sign-in" exact component={CreateUser}/> 
+          
           <Route path="/" exact component={BeerSearch}/> 
+
         </Switch>
       </div>
     );

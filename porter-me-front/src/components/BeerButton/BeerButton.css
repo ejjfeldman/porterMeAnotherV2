@@ -4,26 +4,13 @@
   }
   
   .BeerButton-logo {
-    margin-top: -80px;
+    /* margin-top: -80px; */
     cursor: pointer;
-    height: 400px;
+    height: 500px;
     animation: BeerButton-logo-spin infinite 20s linear;
     position: relative;
   }
-  
-/* 
-  .BeerButton-intro {
-    font-size: large;
-    position: fixed;
-    bottom: 0%;
-    left: 0%;
-    height: 3%;
-    width: 100%;
-    text-align: right;
-    padding-right: 1%;
-    background-color: #EFEBEB;
-  } */
-  
+
   @keyframes BeerButton-logo-spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
@@ -41,8 +28,18 @@
     font-weight: bold;
     box-shadow: 2px 2px 2px black;
     display: block;
-  
-
-    
-
 }
+
+
+@media (max-height: 800px) {
+  .BeerButton-logo  {
+    height: 300px;
+  }
+}
+
+@media (max-height: 950px) {
+  .BeerButton-logo  {
+    height: 400px;
+  }
+}
+

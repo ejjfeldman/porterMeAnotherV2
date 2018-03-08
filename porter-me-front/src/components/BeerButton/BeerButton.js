@@ -11,7 +11,7 @@ class Customers extends Component {
       let beerDisplay = (
         <header className="BeerButton-header">
         <img src={cap} className="BeerButton-logo" alt="BeerButton" onClick={this.props.getRandomBeer}/>
-        <Link to="/refine-beer">
+        <Link to="/refine-beer" style={{ textDecoration: 'none' }}>
         <button className="button">Refine</button>
         </Link>
       </header>

@@ -15,7 +15,8 @@
   margin: 0 auto;
   overflow: hidden;
   position: relative;
-  top: -90px;
+  top: -50px;
+  /* right: 80px; */
   width: 80%;
   max-width: 1060px;
 }

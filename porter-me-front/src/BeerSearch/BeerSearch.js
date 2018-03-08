@@ -93,11 +93,7 @@ class BeerSearch extends Component {
         randomBeer={this.state.randomBeer}
       />
     );
-    // let refineButton = (
-      // <Link to="/refine-beer">
-      //   <button className="button">Refine</button>
-      // </Link>
-    // );
+
     if (this.state.loading) {
       screenDisplay = (
         <div>

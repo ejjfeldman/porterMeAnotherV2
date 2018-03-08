@@ -60,12 +60,29 @@ app.post('/findbeer', (req, res)=>{
             res.send(beerSuggestion)
         }else{
             res.send(response.data)
+            // let beerId = response.data.result[0].id
+            // res.send(beerId)
         }
         // const locationFound = response.data
         // res.send(locationFound)
     })
     console.log("finding location")
 })
+
+//getting lcbo beers from the lcbo api
+
+// app.get('/lcbo-beers', (req, res)=>{
+//     axios.get('http://lcboapi.com/products?q=beer&per_page=100&page=4&access_key=' + key.lcboKey)
+//     .then(response=>{
+//         let beers = response.data.result;
+//         beerList = beers.map(beer=>{
+//             return beer.name
+//         })
+//         console.log(beerList)
+//         res.send(beerList)
+//         // console.log(response.data.result[0].name)
+//     })
+// })
 
 
 const port = 5000;

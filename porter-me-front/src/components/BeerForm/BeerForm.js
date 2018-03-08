@@ -59,7 +59,9 @@ class BeerForm extends Component {
     loading: false,
     oneBeer: "",
     groupedData: "",
-    isAvailable: ""
+    isAvailable: [],
+    checkingAvailability: true,
+    suggestionBeer: ''
   };
 
   orderHandler = event => {
@@ -145,37 +147,7 @@ class BeerForm extends Component {
   clearForm = (event) => {
     document.getElementById("specificBeer").reset();
     event.preventDefault();
-   
-    // const updatedBeerForm = {
-    //   ...this.state.formValues
-    // };
-    // const updatedFormElements = {
-    //   ...updatedBeerForm[Type],
-    //   ...updatedBeerForm[Abv],
-    //   ...updatedBeerForm[Ibu]
-    // };
-    // const updatedFormAbv = {
-    //   ...updatedBeerForm[Abv]
-    // };
-    // const updatedFormIbu = {
-    //   ...updatedBeerForm[Ibu]
-    // };
-    // updatedFormElements.value = "";
 
-
-     
-    // console.log(event, "event")
-    // console.log(inputIdentifier, "inputIdentifier")
-    // const updatedBeerForm = {
-    //   ...this.state.formValues
-    // };
-    // const updatedFormElement = {
-    //   ...updatedBeerForm[inputIdentifier]
-    // };
-    // updatedFormElement.value = event.target.value;
-    // updatedBeerForm[inputIdentifier] = updatedFormElement;
-    // this.setState({ formValues: updatedBeerForm });
-    // console.log(this.state.formValues);
   }
 
   findLocation=(beer)=>{
@@ -187,19 +159,56 @@ class BeerForm extends Component {
         let resultBeer = response.data.charAt(0).toUpperCase()+response.data.slice(1)
         console.log(resultBeer)
          this.setState({
-        isAvailable: resultBeer
+        suggestionBeer: resultBeer,
+        checkingAvailability: false
           })
       }else{
+        let resultBeer = response.data.result;
+        let results = resultBeer.map(result=>{
+          return result.name
+        })
         console.log('found in lcbo')
+        console.log(resultBeer[0])
+        console.log(results)
+        this.setState({
+        isAvailable: results,
+        checkingAvailability: false
+          
+            })
       }
-      
-
-    
-     
 
     });
     
   }
+
+//getting lcbo beers from the lcbo api
+// findList=()=>{
+//   axios.get('/lcbo-beers')
+//   .then(response=>{
+//     console.log(response);
+//     let listData = response.data;
+//     this.saveResults(listData)
+//   })
+  
+// }
+
+//posting lcbo beers to firebase
+// saveResults=(listData)=>{
+//  console.log("saved", listData)
+//  axios
+//  .post("https://beer-data.firebaseio.com/beerList.json",listData)
+//  .then(response => {
+//    // this.setState({ loading: false });
+//    // this.props.history.push('/');
+//  })
+//  .catch(error => {
+//    // this.setState({ loading: false });
+//  });
+// }
+
+findFromList=()=>{
+
+}
 
   render() {
     const formElementsArray = [];
@@ -211,15 +220,9 @@ class BeerForm extends Component {
         config: this.state.formValues[key]
       });
     }
-    // if(this.state.oneBeer.style.name){
-    //   beerStyle=this.state.oneBeer.style.name
-    // }else if (this.state.oneBeer.category.name){
-    //   beerStyle=this.state.oneBeer.category.name
-    // } else {
-    //   beerStyle="undefined"
-    // }
+
     if(this.state.oneBeer){
-      if(!this.state.isAvailable){
+      if(this.state.checkingAvailability){
         form= (
           <div className="refineForm">
             <button className="closeButton" onClick={this.closeForm}>X</button>
@@ -232,20 +235,29 @@ class BeerForm extends Component {
                 <p>{this.state.oneBeer.description}</p>
                 
                 <button className="formButton" onClick={this.closeForm}>Start Over</button>
-                <button className="formButton" onClick={()=>this.findSpecificBeer(this.state.groupedData)}>Same Story, Different Beer</button>
-                <button className="formButton" onClick={()=>this.findLocation(this.state.oneBeer.name)}>Find it</button>
-
+                <button className="formButton" onClick={()=>this.findSpecificBeer(this.state.groupedData)}>Get Another</button>
+                <button className="formButton" onClick={()=>this.findLocation(this.state.oneBeer.name)}>Locate it</button>
+                {/* <button onClick={()=>this.findList()}>Find Beers</button> */}
+                <button onClick={()=>this.findFromList()}>Get List Beer</button>
                 </div>
             </div>
             )
-      }else{
+      }else if(this.state.suggestionBeer){
         form=(
           <div className="refineForm">
             <button className="closeButton" onClick={this.closeForm}>X</button>          
           <h3>Unfortunately the beer you are looking for is not available in the LCBO</h3>
-          <h4>Can we recommend "{this.state.isAvailable}" instead?</h4>
-</div>
-        )
+          <h4>Can we recommend "{this.state.suggestionBeer}" instead?</h4>
+          </div>)
+      }else{
+        form=(
+          <div className="refineForm">
+            <button className="closeButton" onClick={this.closeForm}>X</button>          
+          <h3>"{this.state.oneBeer}" is available in the LCBO</h3>
+          <h4>Can we recommend "{this.state.isAvailable}" as well?</h4>
+          </div>)
+        
+        
         
       }
         

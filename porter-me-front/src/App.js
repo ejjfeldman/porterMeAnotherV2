@@ -9,7 +9,7 @@ import Header from './components/Header/Header';
 import BeerForm from './components/BeerForm/BeerForm';
 import BeerSearch from './BeerSearch/BeerSearch';
 import NavBar from './components/NavBar/NavBar';
-import CreateUser from './components/User/CreateUser/CreateUser';
+import CreateUserForm from './components/User/CreateUser/CreateUserForm';
 
 
 class App extends Component {
@@ -56,7 +56,7 @@ class App extends Component {
         <Switch>
           <Route path="/refine-beer" component={BeerForm}/>
            {/* <Route path="/orders" component={Orders}/> */}
-           <Route path="/sign-in" exact component={CreateUser}/> 
+           <Route path="/sign-in" exact component={CreateUserForm}/> 
           
           <Route path="/" exact component={BeerSearch}/> 
 

@@ -1,3 +1,4 @@
+import * as firebase from 'firebase';
 
 const config = {
     apiKey: "AIzaSyCRlW5VFnsJ5_Qf601mM1A1wEO9T7Ri3Po",
@@ -7,4 +8,13 @@ const config = {
     storageBucket: "beer-data.appspot.com",
     messagingSenderId: "454303909896"
   };
-//   firebase.initializeApp(config);
+
+  if (!firebase.apps.length){
+    firebase.initializeApp(config);
+  }
+ 
+const auth = firebase.auth();
+
+export{
+    auth,
+};

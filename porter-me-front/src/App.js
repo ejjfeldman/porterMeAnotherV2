@@ -28,20 +28,39 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state ={
-      authUser: null
+      authUser: null,
+      uid: null
     };
   }
 
   //onAuthStateChanged gets a function as input which has access to the authenticated user object
   componentDidMount(){
     firebase.auth.onAuthStateChanged(authUser=>{
-      authUser
-      ? this.setState(()=>({ authUser}))
-      : this.setState(()=>({authUser: null}));
-    });
-    console.log(this.state.authUser)
+      
+    //   authUser
+    //   ? this.setState(()=>({ authUser, uid: authUser.uid}))
+    //   : this.setState(()=>({authUser: null}));
+    // });
+    if(authUser){
+      this.setState(()=>({ authUser, uid: authUser.uid}))
+    // this.getUserBeers(this.state.uid)
+      
+    }
+    // const uid 
+  })
+}
+
+
+  componentDidUpdate(){
+
+    console.log(this.state.authUser,"uid", this.state.uid)
   }
 
+  // getUserBeers=(uid)=>{
+  //   let user = this.state.authUser;
+  //   const userRef = firebase.database().ref().child(String(uid));
+  //   console.log("userref",userRef)
+  // }
 // RETURN TO:
 //   render() {
 

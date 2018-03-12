@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./BeerSearch.css";
 import axios from "axios";
 // import { Switch, Route, Link } from "react-router-dom";
+import {auth} from '../firebase/index';
 
 import BeerButton from "../components/BeerButton/BeerButton";
 import Modal from "../components/Modal/Modal";
@@ -14,12 +15,20 @@ class BeerSearch extends Component {
   state = {
     randomBeer: "",
     displayResults: false,
-    loading: false
+    loading: false,
+    // users: null
   };
 
-  componentDidMount(){
-    console.log(this.props.authUser)
-  }
+  // componentDidMount(){
+  //   console.log(this.props.authUser)
+  //   // console.log(auth.currentUser)
+  // }
+  // componentDidMount() {
+  //   db.onceGetUsers().then(snapshot =>
+  //     this.setState(() => ({ users: snapshot.val() }))
+  //   );
+  //   console.log(this.state.users)
+  // }
 
   getRandom = () => {
     this.setState({ loading: true });
@@ -32,8 +41,26 @@ class BeerSearch extends Component {
         loading: false
       });
       console.log(this.state.randomBeer);
+      this.saveBeer(this.state.randomBeer)
     });
+   
   };
+
+  saveBeer=(beer)=>{
+    const beerName=beer.name;
+    const beerSelected ={
+      beerName: beer
+    };
+    axios
+    .post("https://beer-data.firebaseio.com/beerResult.json", beerSelected)
+    .then(response => {
+      // this.setState({ loading: false });
+      // this.props.history.push('/');
+    })
+    .catch(error => {
+      // this.setState({ loading: false });
+    });
+  }
 
   closeResults = () => {
     this.setState({ displayResults: false, randomBeer: {} });

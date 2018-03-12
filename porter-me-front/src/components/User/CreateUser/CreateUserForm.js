@@ -15,7 +15,7 @@ const SignUpPage = ({history})=>
 
 //user information
 const INITIAL_STATE={
-    displayName: '',
+    username: '',
     email: '',
     passwordOne: '',
     passwordTwo: '',
@@ -38,7 +38,7 @@ class CreateUserForm extends Component {
 
 onSubmit = (event)=> {
 const{
-    displayName,
+    username,
     email,
     passwordOne,
 }=this.state;
@@ -49,6 +49,15 @@ const {
 
 auth.doCreateUserWithEmailAndPassword(email, passwordOne)
 .then(authUser => {
+    //Create a user in accessible firebase database
+    // db.doCreateUser(authUser.uid, username, email)
+    //     .then(()=>{
+    //         this.setState(()=>({...INITIAL_STATE}));
+    //         history.push(routes.HOME)
+    //     })
+    //     .catch(error=>{
+    //         this.setState(byPropKey('error', error));
+    //     });
     this.setState(()=> ({...INITIAL_STATE}));
     history.push(routes.HOME);
 })
@@ -59,7 +68,7 @@ event.preventDefault();
 }
     render(){
         const {
-            displayName,
+            username,
             email,
             passwordOne,
             passwordTwo,
@@ -70,7 +79,7 @@ event.preventDefault();
             passwordOne !== passwordTwo ||
             passwordOne === "" ||
             email === '' ||
-            displayName === '';
+            username === '';
 
         return(
            <form onSubmit={this.onSubmit} className="createUserForm">
@@ -78,9 +87,9 @@ event.preventDefault();
             <div className="formInput">
 
             <input
-             value={displayName}
+             value={username}
              className="inputElement"
-             onChange={event => this.setState(byPropKey('displayName', event.target.value))}
+             onChange={event => this.setState(byPropKey('username', event.target.value))}
              type="text"
              placeholder="Full Name"
              />

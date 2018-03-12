@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom';
 const header = () => {
     return(
 <div className="mainHeader">     
-  <div id="pour"></div>
+  {/* <div id="pour"></div> */}
   <div id="beaker">
     <div className="beer-foam">
       <div className="foam-1"></div>

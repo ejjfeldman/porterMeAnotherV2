@@ -13,9 +13,10 @@
 .mainHeader {
   height: 370px;
   margin: 0 auto;
-  overflow: hidden;
+  /* margin-top: 100px; */
+  /* overflow: hidden; */
   position: relative;
-  top: -50px;
+  /* top: -50px; */
   /* right: 80px; */
   width: 80%;
   max-width: 1060px;

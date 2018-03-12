@@ -1,17 +1,21 @@
 import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import SignUpForm from './SignUpForm';
-import {auth} from '../../../firebase';
+import {auth} from '../../../firebase/index';
+import './CreateUserForm.css';
+
+import * as routes from '../../../Routes/routes';
 
 const SignUpPage = ({history})=>
 <div>
-    <h1>SignUp</h1>
+    {/* <h1>SignUp</h1> */}
     <CreateUserForm history={history}/>
+
 </div>
 
 //user information
 const INITIAL_STATE={
-    username: '',
+    displayName: '',
     email: '',
     passwordOne: '',
     passwordTwo: '',
@@ -30,13 +34,11 @@ class CreateUserForm extends Component {
         this.state={
             ...INITIAL_STATE
         };
-    
-    // history.push('/');
     }
 
 onSubmit = (event)=> {
 const{
-    username,
+    displayName,
     email,
     passwordOne,
 }=this.state;
@@ -48,7 +50,7 @@ const {
 auth.doCreateUserWithEmailAndPassword(email, passwordOne)
 .then(authUser => {
     this.setState(()=> ({...INITIAL_STATE}));
-    this.props.history.push("/");
+    history.push(routes.HOME);
 })
 .catch(error=>{
     this.setState(byPropKey('error', error));
@@ -57,7 +59,7 @@ event.preventDefault();
 }
     render(){
         const {
-            username,
+            displayName,
             email,
             passwordOne,
             passwordTwo,
@@ -68,35 +70,52 @@ event.preventDefault();
             passwordOne !== passwordTwo ||
             passwordOne === "" ||
             email === '' ||
-            username === '';
+            displayName === '';
 
         return(
-           <form onSubmit={this.onSubmit}>
+           <form onSubmit={this.onSubmit} className="createUserForm">
+           <h2>Create New User</h2>
+            <div className="formInput">
+
             <input
-             value={username}
-             onChange={event => this.setState(byPropKey('username', event.target.value))}
+             value={displayName}
+             className="inputElement"
+             onChange={event => this.setState(byPropKey('displayName', event.target.value))}
              type="text"
              placeholder="Full Name"
              />
+             </div>
+             <div className="formInput">
+
              <input
              value={email}
+             className="inputElement"
              onChange={event => this.setState(byPropKey('email', event.target.value))}
              type="text"
              placeholder="Email"
              />
+             </div>
+             <div className="formInput">
+
              <input
              value={passwordOne}
+             className="inputElement"
              onChange={event => this.setState(byPropKey('passwordOne', event.target.value))}
              type="password"
              placeholder="Password"
              />
+             </div>
+             <div className="formInput">
+          
              <input
              value={passwordTwo}
+             className="inputElement"
              onChange={event => this.setState(byPropKey('passwordTwo', event.target.value))}
              type="password"
              placeholder="Confirm Password"
              />
-             <button disabled={isInvalid} type="submit">Sign Up</button>
+             </div>
+             <button disabled={isInvalid} className="formButton" type="submit">Sign Up</button>
 
              {/* provided by firebase */}
              {error && <p>{error.message}</p>}
@@ -108,7 +127,8 @@ event.preventDefault();
 
 const SignUpLink = () =>
 <p>Don't have an account?
-<Link to={'/sign-up'}>Sign Up</Link>
+    {' '}
+<Link to={routes.SIGN_UP}>Sign Up</Link>
 </p>
 
 export default withRouter(SignUpPage);

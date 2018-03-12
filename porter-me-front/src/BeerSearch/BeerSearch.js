@@ -8,6 +8,7 @@ import Modal from "../components/Modal/Modal";
 // import Header from "../components/Header/Header";
 // import BeerForm from "../components/BeerForm/BeerForm";
 import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
+import NoUserMessage from "../components/NoUserMessage/NoUserMessage";
 
 class BeerSearch extends Component {
   state = {
@@ -15,6 +16,10 @@ class BeerSearch extends Component {
     displayResults: false,
     loading: false
   };
+
+  componentDidMount(){
+    console.log(this.props.authUser)
+  }
 
   getRandom = () => {
     this.setState({ loading: true });
@@ -41,9 +46,11 @@ class BeerSearch extends Component {
     let beerAbv = null;
     let beerDescription = null;
     let beerIbu = null;
+    let userMessage = null;
 
     if (this.state.randomBeer.name) {
       let displayBeer = this.state.randomBeer;
+
       if (displayBeer.name) {
         beerName = displayBeer.name;
       } else {
@@ -85,6 +92,7 @@ class BeerSearch extends Component {
         </div>
       );
       console.log(this.state.randomBeer);
+
     }
 
     let screenDisplay = (
@@ -104,8 +112,13 @@ class BeerSearch extends Component {
       );
       // refineButton = null;
     }
+
+
+   
     return (
       <div className="App">
+      {/* {userMessage} */}
+      <NoUserMessage isLoggedIn={this.props.authUser} isLoading={this.state.loading}/>
         {screenDisplay}
         <Modal
           show={this.state.displayResults}

@@ -1,6 +1,4 @@
-.createUserForm{
-    /* position: fixed; */
-
+.signInForm{
     position: fixed;
     z-index: 500;
     background-color: white;

@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Input from "../Input/Input";
-// import Modal from "../Modal/Modal";
+import Modal from "../Modal/Modal";
 import "./BeerForm.css";
 // import Backdrop from '../Backdrop/Backdrop';
 import Aux from '../Aux';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import * as routes from '../../Routes/routes';
+import {withRouter} from 'react-router-dom';
 
 class BeerForm extends Component {
   state = {
@@ -57,6 +59,7 @@ class BeerForm extends Component {
       }
     },
     loading: false,
+    displayResults: false,
     oneBeer: "",
     groupedData: "",
     isAvailable: [],
@@ -116,6 +119,7 @@ class BeerForm extends Component {
       console.log(oneBeer);
     this.setState({
       oneBeer: oneBeer,
+      displayResults: true,
       loading: false
     })
     console.log(this.state.oneBeer, "!")
@@ -138,8 +142,10 @@ class BeerForm extends Component {
     console.log(this.state.formValues);
   };
 
+  //FIX THIS
   closeForm = () => {
-    this.props.history.push("/");
+    this.props.history.push(routes.HOME);
+    // this.setState({displayResults: false, oneBeer: {}});
   };
 
 
@@ -264,7 +270,7 @@ findFromList=()=>{
     }else if(this.state.loading){
       form=(
         <div>
-          <h1>Waiting To Get Loaded</h1>
+          <h1 className="spinnerHeader">Waiting To Get Loaded</h1>
           <LoadingSpinner />
         </div>
       )
@@ -297,15 +303,20 @@ findFromList=()=>{
 
     return (
         <Aux>
-        {/* <Backdrop show clicked={this.closeForm}/> */}
-       
-        {/* <Modal show modalClosed={this.closeForm}> */}
-        {form}
+      
+
+
+       {/* <Modal show={this.state.displayResults} 
+       modalClosed={this.closeForm}
+       oneBeer={this.state.oneBeer}> */}
+       {form}
         
         {/* </Modal> */}
+
+
       </Aux>
     );
   }
 }
 
-export default BeerForm;
+export default withRouter(BeerForm);

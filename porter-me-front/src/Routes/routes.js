@@ -5,4 +5,5 @@ export const HOME = '/';
 export const ACCOUNT = '/account';
 export const PASSWORD_FORGET = '/pw-forget';
 export const REFINE_BEER = '/refine-beer';
+export const RANDOM_BEER = '/random-beer';
 

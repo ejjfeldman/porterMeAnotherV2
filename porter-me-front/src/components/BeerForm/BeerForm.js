@@ -79,16 +79,14 @@ class BeerForm extends Component {
     const dataGrouped = {
       beerData: formData
     };
-    // this.setState({groupedData: dataGrouped})
-    // console.log("dataGrouped", this.state.groupedData);
+
     axios
       .post("https://beer-data.firebaseio.com/beerSelection.json", dataGrouped)
       .then(response => {
-        // this.setState({ loading: false });
-        // this.props.history.push('/');
+        console.log("success")
       })
       .catch(error => {
-        // this.setState({ loading: false });
+        console.log("error", error)
       });
     this.findSpecificBeer(dataGrouped.beerData);
   };
@@ -216,9 +214,16 @@ findFromList=()=>{
 
 }
 
+closeResults = () => {
+  this.setState({ displayForm: false, oneBeer: {} });
+};
+
   render() {
     const formElementsArray = [];
-    // let beerStyle = '';
+    let displayBeer = null;
+    let beerStyle = '';
+    let beerAbv="undefined";
+    let beerIbu="undefined";
     let form = null;
     for (let key in this.state.formValues) {
       formElementsArray.push({
@@ -229,6 +234,14 @@ findFromList=()=>{
 
     if(this.state.oneBeer){
       if(this.state.checkingAvailability){
+        let displayBeer = this.state.oneBeer;
+
+        if(displayBeer.abv){
+          beerAbv=displayBeer.abv
+        }
+        if(displayBeer.ibu){
+          beerIbu=displayBeer.ibu
+        }
         form= (
           <div className="refineForm">
             <button className="closeButton" onClick={this.closeForm}>X</button>
@@ -236,17 +249,18 @@ findFromList=()=>{
             <div className="beerRefineResult">
                 <h3>We found you the perfect beer!</h3>
                 <h2>{this.state.oneBeer.name}</h2>
-                <p><strong>ABV: </strong>{this.state.oneBeer.abv}%</p>
-                <p><strong>IBU: </strong>{this.state.oneBeer.ibu}</p>
+                <p><strong>ABV: </strong>{beerAbv}%</p>
+                <p><strong>IBU: </strong>{beerIbu}</p>
                 <p>{this.state.oneBeer.description}</p>
                 
                 <button className="formButton" onClick={this.closeForm}>Start Over</button>
                 <button className="formButton" onClick={()=>this.findSpecificBeer(this.state.groupedData)}>Get Another</button>
                 <button className="formButton" onClick={()=>this.findLocation(this.state.oneBeer.name)}>Locate it</button>
                 {/* <button onClick={()=>this.findList()}>Find Beers</button> */}
-                <button onClick={()=>this.findFromList()}>Get List Beer</button>
+                {/* <button onClick={()=>this.findFromList()}>Get List Beer</button> */}
                 </div>
             </div>
+            // </Modal>
             )
       }else if(this.state.suggestionBeer){
         form=(

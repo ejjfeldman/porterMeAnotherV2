@@ -29,7 +29,11 @@ class App extends Component {
     super(props);
     this.state ={
       authUser: null,
-      uid: null
+      uid: null,
+      user:{
+        email: null,
+        name: null
+      }
     };
   }
 
@@ -42,7 +46,14 @@ class App extends Component {
     //   : this.setState(()=>({authUser: null}));
     // });
     if(authUser){
-      this.setState(()=>({ authUser, uid: authUser.uid}))
+      this.setState(()=>({ 
+        authUser, 
+        uid: authUser.uid, 
+        user:{
+          email: authUser.email,
+          name: authUser.displayName
+        }
+        }))
     // this.getUserBeers(this.state.uid)
       
     }
@@ -51,48 +62,13 @@ class App extends Component {
 }
 
 
-  componentDidUpdate(){
-
-    console.log(this.state.authUser,"uid", this.state.uid)
-  }
-
-  // getUserBeers=(uid)=>{
-  //   let user = this.state.authUser;
-  //   const userRef = firebase.database().ref().child(String(uid));
-  //   console.log("userref",userRef)
-  // }
-// RETURN TO:
-//   render() {
-
-//     return (
-//       <div className="App">
-//       <NavBar/>
-//       <Header/>
-    
-//         <Switch>
-//           <Route path="/refine-beer" component={BeerForm}/>
-//            {/* <Route path="/orders" component={Orders}/> */}
-//            <Route path="/sign-in" exact component={CreateUserForm}/> 
-          
-//           <Route path="/" exact component={BeerSearch}/> 
-
-//         </Switch>
-//       </div>
-//     );
-//   }
-// }
-
 render(){
   return(
     <Router>
       <div>
         <NavBar authUser={this.state.authUser}/>
         <Header/>
- 
-        {/* <Route
-        exact path={routes.LANDING}
-        component={() => <Landing />}
-      /> */}
+
       <Route
         exact path={routes.SIGN_UP}
         component={() => <CreateUserForm />}
@@ -105,18 +81,32 @@ render(){
         exact path={routes.PASSWORD_FORGET}
         component={() => <PasswordForget />}
       />
+
+      {/* Switch back */}
       <Route
         exact path={routes.HOME}
         component={() => <BeerSearch authUser={this.state.authUser}/>}
       />
+      {/* <Route
+        exact path={routes.HOME}
+        component={() => <BeerButton/>}
+      />  */}
       <Route
         exact path={routes.ACCOUNT}
-        component={() => <Account />}
+        component={() => <Account 
+          authUser={this.state.authUser} 
+          uid={this.state.uid}
+          user={this.state.user}/>}
       />
       <Route
         exact path={routes.REFINE_BEER}
         component={() => <BeerForm />}
       />
+      {/* Delete/switch back */}
+      {/* <Route
+        exact path={routes.RANDOM_BEER}
+        component={() => <BeerSearch authUser={this.state.authUser} />}
+      /> */}
 
 
       </div>

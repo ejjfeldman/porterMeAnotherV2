@@ -1,6 +1,6 @@
 .signOutBtn{
-    border: none;
-    background: none;
+    /* border: none; */
+    background: grey;
     font-weight: bold;
     color: black;
     font: inherit;

@@ -10,6 +10,8 @@
     top: 40%;
     box-sizing: border-box;
     transition: all 0.3s ease-out;
+    max-height: 50%;
+    overflow-y: scroll;
 }
 
 @media (min-width: 600px) {

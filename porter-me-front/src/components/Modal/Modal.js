@@ -6,7 +6,6 @@ import Backdrop from '../Backdrop/Backdrop';
 class Modal extends Component{ 
 
     //makes it only update when necessary
-    //includes orderSummary update
     shouldComponentUpdate(nextProps, nextState){
         //to have the loading spinner show, we need to check the children props as well since that is what is being passed
         return nextProps.show !== this.props.show || nextProps.children !== this.props.children;

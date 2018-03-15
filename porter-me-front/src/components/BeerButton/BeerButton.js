@@ -12,7 +12,8 @@ class BeerButton extends Component {
   render() {
       let beerDisplay = (
         <header className="BeerButton-header">
-        <img src={cap} className="BeerButton-logo" alt="BeerButton" onClick={this.props.getRandomBeer}/>
+        <img src={cap} className="BeerButton-logo" alt="BeerButton" 
+        onClick={this.props.getRandomBeer}/>
         <Link to={routes.REFINE_BEER} style={{ textDecoration: 'none' }}>
         <button className="button">Refine</button>
         </Link>

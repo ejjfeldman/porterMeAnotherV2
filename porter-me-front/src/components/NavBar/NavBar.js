@@ -25,14 +25,24 @@ import "./NavBar.css";
 //   );
 // };
 
-const navBar = ({authUser}) => (
-<div className="navigationBar">
-        {authUser
-        ? <NavigationAuth/>
-        :<NavigationNonAuth/>
-        }
-    </div>
-)
+// const navBar = ({authUser}) => (
+// <div className="navigationBar">
+//         {authUser
+//         ? <NavigationAuth/>
+//         :<NavigationNonAuth/>
+//         }
+//     </div>
+// )
+
+
+const navBar = (props) => (
+  <div className="navigationBar">
+          {props.authUser
+          ? <NavigationAuth/>
+          :<NavigationNonAuth/>
+          }
+      </div>
+  )
 
     
     const NavigationAuth = () =>(

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
-import SignUpForm from './SignUpForm';
 import {auth} from '../../../firebase/index';
 import './CreateUserForm.css';
 
@@ -59,7 +58,10 @@ auth.doCreateUserWithEmailAndPassword(email, passwordOne)
     //         this.setState(byPropKey('error', error));
     //     });
     this.setState(()=> ({...INITIAL_STATE}));
-    history.push(routes.HOME);
+    // var user = firebase.auth().currentUser;
+    // console.log(user);
+    history.push({
+        pathname: routes.HOME});
 })
 .catch(error=>{
     this.setState(byPropKey('error', error));

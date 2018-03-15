@@ -3,10 +3,10 @@ ul{
 }
 
 .navigationBar{
-    height: 50px;
+    height: 70px;
     width:100%;
-    /* position: fixed; */
-    top: -50px;
+    position: fixed;
+    /* top: -50px; */
     left: 0;
     background-color:#5a5c60;
     /* display: inline-block; */

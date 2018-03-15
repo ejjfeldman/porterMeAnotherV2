@@ -62,6 +62,9 @@ class BeerSearch extends Component {
 
   findLocation=(beer)=>{
     console.log(beer)
+    this.setState({
+      loading: true
+    });
     axios.post("/findbeer", {locatebeer: beer})
     .then(response => {
       console.log(response.data);
@@ -70,7 +73,8 @@ class BeerSearch extends Component {
         console.log(resultBeer)
          this.setState({
         suggestionBeer: resultBeer,
-        checkingAvailability: false
+        checkingAvailability: false,
+        loading: false
           })
       }else{
         let resultBeer = response.data.result;
@@ -82,7 +86,9 @@ class BeerSearch extends Component {
         console.log(results)
         this.setState({
         isAvailable: results,
-        checkingAvailability: false
+        checkingAvailability: false,
+        loading: false
+        
           
             })
       }
@@ -153,7 +159,7 @@ class BeerSearch extends Component {
         beerDisplayResult=(
           <div className="refineForm">
             <button className="closeButton" onClick={this.closeForm}>X</button>          
-          <h3>"{this.state.oneBeer}" is available in the LCBO</h3>
+          <h3>"{this.state.randomBeer}" is available in the LCBO</h3>
           <h4>Can we recommend "{this.state.isAvailable}" as well?</h4>
           </div>)
       }
@@ -164,7 +170,7 @@ class BeerSearch extends Component {
     let screenDisplay = (
       <div>
     <NoUserMessage isLoggedIn={this.props.authUser} isLoading={this.state.loading}/>
-<BeerButton
+    <BeerButton
         getRandomBeer={this.getRandom}
         randomBeer={this.state.randomBeer}
       />
@@ -181,6 +187,7 @@ class BeerSearch extends Component {
         </div>
       );
     }
+
 
 
    

@@ -100,7 +100,8 @@ render(){
       />
       <Route
         exact path={routes.REFINE_BEER}
-        component={() => <BeerForm />}
+        component={() => <BeerForm authUser={this.state.authUser} 
+        uid={this.state.uid}/>}
       />
       {/* Delete/switch back */}
       {/* <Route

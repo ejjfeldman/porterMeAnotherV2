@@ -64,10 +64,12 @@ class BeerForm extends Component {
     groupedData: "",
     isAvailable: [],
     checkingAvailability: true,
-    suggestionBeer: ''
+    suggestionBeer: '',
+    tryingAgain: false
   };
 
   orderHandler = event => {
+    this.setState({loading: true})
     event.preventDefault();
       // this.setState({loading:true});
     const formData = {};
@@ -95,6 +97,7 @@ class BeerForm extends Component {
     console.log(dataGrouped)
     this.setState({ 
       loading: true,
+      oneBeer: '',
       groupedData: dataGrouped
      });    
     axios.post("/my-beer", { formResults: dataGrouped }).then(response => {
@@ -115,13 +118,48 @@ class BeerForm extends Component {
       
     let oneBeer = narrowedArray[Math.floor(Math.random() * narrowedArray.length)];
       console.log(oneBeer);
-    this.setState({
-      oneBeer: oneBeer,
-      displayResults: true,
-      loading: false
-    })
-    console.log(this.state.oneBeer, "!")
+      
+      if(oneBeer == undefined){
+        console.log("sldfjwefwe")
+        this.setState({
+          loading: true,
+          tryingAgain: true,
+          displayResults: false,
+          oneBeer: ''
+        })
+        this.findSpecificBeer(this.state.groupedData);
+      }else{
+        this.setState({
+          oneBeer: oneBeer,
+          displayResults: true,
+          loading: false,
+          tryingAgain: false
+        })
+        console.log(this.state.oneBeer, "!")
+      }
+    if(this.props.authUser){
+      this.saveBeer(this.state.oneBeer)
+    }
 
+    });
+  }
+
+  saveBeer=(beer)=>{
+    console.log("beer", beer)
+    const user = this.props.authUser;
+    const uid = user.uid;
+    console.log("user", uid)
+    const beerName=beer.name;
+    const beerSelected ={
+      beerName: beer
+    };
+    axios
+    .post("https://beer-data.firebaseio.com/"+uid+".json", beerSelected)
+    .then(response => {
+      console.log('response received')
+    })
+    .catch(error => {
+      console.log("error", error)
     });
   }
 
@@ -155,6 +193,7 @@ class BeerForm extends Component {
   }
 
   findLocation=(beer)=>{
+    this.setState({loading: true});
     console.log(beer)
     axios.post("/findbeer", {locatebeer: beer})
     .then(response => {
@@ -164,7 +203,8 @@ class BeerForm extends Component {
         console.log(resultBeer)
          this.setState({
         suggestionBeer: resultBeer,
-        checkingAvailability: false
+        checkingAvailability: false,
+        loading: false
           })
       }else{
         let resultBeer = response.data.result;
@@ -176,7 +216,9 @@ class BeerForm extends Component {
         console.log(results)
         this.setState({
         isAvailable: results,
-        checkingAvailability: false
+        checkingAvailability: false,
+        loading: false
+        
           
             })
       }
@@ -215,7 +257,7 @@ findFromList=()=>{
 }
 
 closeResults = () => {
-  this.setState({ displayForm: false, oneBeer: {} });
+  this.setState({ displayForm: false, oneBeer: "" });
 };
 
   render() {
@@ -225,6 +267,7 @@ closeResults = () => {
     let beerAbv="undefined";
     let beerIbu="undefined";
     let form = null;
+    let loading = null;
     for (let key in this.state.formValues) {
       formElementsArray.push({
         id: key,
@@ -232,10 +275,19 @@ closeResults = () => {
       });
     }
 
-    if(this.state.oneBeer){
-      if(this.state.checkingAvailability){
-        let displayBeer = this.state.oneBeer;
+    // if(this.state.tryingAgain && this.state.loading){
+    //   form=(
+    //     <div>
+    //       <h1 className="spinnerHeader">Waiting To Get Loaded</h1>
+    //       <LoadingSpinner />
+    //     </div>
+    //   )
+    // }
 
+    if(this.state.oneBeer && !this.state.loading){
+      if(this.state.checkingAvailability){
+        
+        displayBeer = this.state.oneBeer;
         if(displayBeer.abv){
           beerAbv=displayBeer.abv
         }
@@ -281,37 +333,66 @@ closeResults = () => {
         
       }
         
-    }else if(this.state.loading){
+    }else if(!this.state.loading && !this.state.oneBeer && !this.state.tryingAgain){
+      form = (
+        <div className="refineForm">
+          <form onSubmit={this.orderHandler} id="specificBeer">
+          <button className="closeButton" onClick={this.closeForm}>X</button>
+          <div className="formHeader">
+          <h4>Find Your Perfect Beer</h4>
+          <h5>Narrow your search</h5>
+          </div>
+            {formElementsArray.map(formElement => (
+              <Input
+                key={formElement.id}
+                elementType={formElement.config.elementType}
+                elementConfig={formElement.config.elementConfig}
+                value={formElement.config.value}
+                changed={event => this.inputChangedHandler(event, formElement.id)}
+              />
+            ))}
+            <button className="formButton" onClick={this.closeForm}>Back</button>
+            <button type="submit" className="formButton">Search</button>
+            
+          </form>
+          </div>
+        );
+      // form=(
+      //   <div>
+      //     <h1 className="spinnerHeader">Waiting To Get Loaded</h1>
+      //     <LoadingSpinner />
+      //   </div>
+      // )
+    }else{
       form=(
         <div>
           <h1 className="spinnerHeader">Waiting To Get Loaded</h1>
           <LoadingSpinner />
         </div>
       )
-    }else{
-        form = (
-          <div className="refineForm">
-            <form onSubmit={this.orderHandler} id="specificBeer">
-            <button className="closeButton" onClick={this.closeForm}>X</button>
-            <div className="formHeader">
-            <h4>Find Your Perfect Beer</h4>
-            <h5>Narrow your search</h5>
-            </div>
-              {formElementsArray.map(formElement => (
-                <Input
-                  key={formElement.id}
-                  elementType={formElement.config.elementType}
-                  elementConfig={formElement.config.elementConfig}
-                  value={formElement.config.value}
-                  changed={event => this.inputChangedHandler(event, formElement.id)}
-                />
-              ))}
-              <button className="formButton" onClick={this.closeForm}>Back</button>
-              <button type="submit" className="formButton">Search</button>
+        // form = (
+        //   <div className="refineForm">
+        //     <form onSubmit={this.orderHandler} id="specificBeer">
+        //     <button className="closeButton" onClick={this.closeForm}>X</button>
+        //     <div className="formHeader">
+        //     <h4>Find Your Perfect Beer</h4>
+        //     <h5>Narrow your search</h5>
+        //     </div>
+        //       {formElementsArray.map(formElement => (
+        //         <Input
+        //           key={formElement.id}
+        //           elementType={formElement.config.elementType}
+        //           elementConfig={formElement.config.elementConfig}
+        //           value={formElement.config.value}
+        //           changed={event => this.inputChangedHandler(event, formElement.id)}
+        //         />
+        //       ))}
+        //       <button className="formButton" onClick={this.closeForm}>Back</button>
+        //       <button type="submit" className="formButton">Search</button>
               
-            </form>
-            </div>
-          );
+        //     </form>
+        //     </div>
+        //   );
         
     }
 
@@ -319,7 +400,7 @@ closeResults = () => {
         <Aux>
       
 
-
+      {loading}
        {/* <Modal show={this.state.displayResults} 
        modalClosed={this.closeForm}
        oneBeer={this.state.oneBeer}> */}

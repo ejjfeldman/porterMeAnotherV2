@@ -26,15 +26,6 @@
   position: absolute; 
 }
 
-/* .pour {
-    position: absolute;
-    left: 45%;
-    width: 20px;
-    height: 0px;
-    background-color: #edaf32;
-    border-radius: 10px;
-  } */
-  
   #beaker {
     border-top: 0;
     border-radius: 0 0 30px 30px;
@@ -397,18 +388,18 @@
     }
   }
 
-  @media (max-width: 700px){
+  /* @media (max-width: 700px){
     .mainHeader {
 
       width: 510px;
 
     }
-  }
+  } */
 
-  @media (max-width: 1200px){
+  /* @media (max-width: 1200px){
     #beaker {
 
       width: 900px;
 
     }
-  }
+  } */

@@ -71,16 +71,30 @@ app.post('/findbeer', (req, res)=>{
 
 //getting lcbo beers from the lcbo api
 
-// app.get('/lcbo-beers', (req, res)=>{
-//     axios.get('http://lcboapi.com/products?q=beer&per_page=100&page=4&access_key=' + key.lcboKey)
+app.get('/lcbo-beers', (req, res)=>{
+    let pageNumber = Math.floor(Math.random()*10);
+    console.log("pageNUmb", pageNumber)
+    axios.get('http://lcboapi.com/products?q=beer&per_page=100&page='+pageNumber+'&access_key=' + key.lcboKey)
+    .then(response=>{
+        let beers = response.data.result;
+        beerList = beers.map(beer=>{
+            return beer.name
+        })
+        let randomNumber = Math.floor(Math.random()*100);
+        console.log("random", randomNumber)
+        availableRandomBeer = beerList[randomNumber]
+        console.log(availableRandomBeer)
+        res.send(availableRandomBeer )
+        // console.log(response.data.result[0].name)
+    })
+})
+
+// app.get('/suggestion-beer', (req, res)=>{
+//     axios.get('https://beer-data.firebaseio.com/beerList.json')
 //     .then(response=>{
-//         let beers = response.data.result;
-//         beerList = beers.map(beer=>{
-//             return beer.name
-//         })
-//         console.log(beerList)
-//         res.send(beerList)
-//         // console.log(response.data.result[0].name)
+//         console.log("beerList", response.data)
+//         // let beerList = response.data;
+//         // beerList
 //     })
 // })
 

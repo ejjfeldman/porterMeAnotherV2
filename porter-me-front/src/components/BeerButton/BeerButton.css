@@ -11,10 +11,10 @@
     position: relative;
   }
 
-  @keyframes BeerButton-logo-spin {
+  /* @keyframes BeerButton-logo-spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
-  }
+  } */
 
   .button {
     background-color: white;

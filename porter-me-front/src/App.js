@@ -12,7 +12,7 @@ import BeerSearch from './BeerSearch/BeerSearch';
 import NavBar from './components/NavBar/NavBar';
 import CreateUserForm from './components/User/CreateUser/CreateUserForm';
 
-import Landing from './components/Landing/Landing';
+
 // import SignUp from './components/User/CreateUser/CreateUserForm';
 import SignIn from './components/User/SignIn/SignIn';
 import PasswordForget from './components/User/Password/PasswordForget';
@@ -41,24 +41,24 @@ class App extends Component {
   componentDidMount(){
     firebase.auth.onAuthStateChanged(authUser=>{
       
-    //   authUser
-    //   ? this.setState(()=>({ authUser, uid: authUser.uid}))
-    //   : this.setState(()=>({authUser: null}));
-    // });
-    if(authUser){
-      this.setState(()=>({ 
-        authUser, 
-        uid: authUser.uid, 
-        user:{
-          email: authUser.email,
-          name: authUser.displayName
-        }
-        }))
-    // this.getUserBeers(this.state.uid)
+      authUser
+      ? this.setState(()=>({ authUser, uid: authUser.uid}))
+      : this.setState(()=>({authUser: null}));
+    });
+    // if(authUser){
+    //   this.setState(()=>({ 
+    //     authUser, 
+    //     uid: authUser.uid, 
+    //     user:{
+    //       email: authUser.email,
+    //       name: authUser.displayName
+    //     }
+    //     }))
+    // // this.getUserBeers(this.state.uid)
       
-    }
+    // }
     // const uid 
-  })
+  // })
 }
 
 

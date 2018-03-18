@@ -14,7 +14,7 @@ ul{
     align-items: center;
     /* padding: 0 20px; */
     box-sizing: border-box;
-    z-index: 290;
+    z-index: 1000;
     margin-top: -20px;
 
 }

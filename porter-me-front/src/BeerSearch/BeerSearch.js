@@ -5,8 +5,6 @@ import {auth, db, firebase} from '../firebase/index';
 import * as routes from '../Routes/routes';
 import {withRouter} from 'react-router-dom';
 
-
-
 import BeerButton from "../components/BeerButton/BeerButton";
 import Modal from "../components/Modal/Modal";
 import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
@@ -23,6 +21,15 @@ class BeerSearch extends Component {
   };
 
   getRandom = () => {
+    console.log(
+      "randomBeer", this.state.randomBeer,
+      "displayResults", this.state.displayResults,
+      "loading", this.state.loading,
+      "suggestionBeer", this.state.suggestionBeer,
+      "isAvailable", this.state.isAvailable,
+      "checkingAvailability", this.state.checkingAvailability
+
+    )
     this.setState({ loading: true });
     axios.get("/randombeer").then(response => {
       let beerFetched = response.data;
@@ -74,20 +81,24 @@ class BeerSearch extends Component {
          this.setState({
         suggestionBeer: resultBeer,
         checkingAvailability: false,
-        loading: false
+        loading: false,
+
           })
+        
       }else{
-        let resultBeer = response.data.result;
-        let results = resultBeer.map(result=>{
-          return result.name
-        })
-        console.log('found in lcbo')
-        console.log(resultBeer[0])
-        console.log(results)
+        // let resultBeer = response.data.result;
+        // let results = resultBeer.map(result=>{
+        //   return result.name
+        // })
+        // console.log('found in lcbo')
+        // console.log(resultBeer[0])
+        // console.log(results.toString())
+        console.log("beer",this.state.randomBeer)
         this.setState({
-        isAvailable: results,
+        // isAvailable: results[0],
         checkingAvailability: false,
-        loading: false
+        loading: false,
+        
         
           
             })
@@ -96,13 +107,27 @@ class BeerSearch extends Component {
   }
 
   closeResults = () => {
-    this.setState({ displayResults: false, randomBeer: {} });
+    // this.setState({ displayResults: false, randomBeer: '' });
+    this.setState({
+  
+      randomBeer: "",
+      displayResults: false,
+      loading: false,
+      suggestionBeer:'',
+      isAvailable: [],
+      checkingAvailability: true,})
   };
 
   closeForm = () => {
 
-    this.setState({suggestionBeer: '', displayResults: false, randomBeer: {}})
-    this.props.history.push(routes.HOME);
+    this.setState({
+  
+    randomBeer: "",
+    displayResults: false,
+    loading: false,
+    suggestionBeer:'',
+    isAvailable: [],
+    checkingAvailability: true,})
     
   };
 
@@ -159,8 +184,8 @@ class BeerSearch extends Component {
         beerDisplayResult=(
           <div className="refineForm">
             <button className="closeButton" onClick={this.closeForm}>X</button>          
-          <h3>"{this.state.randomBeer}" is available in the LCBO</h3>
-          <h4>Can we recommend "{this.state.isAvailable}" as well?</h4>
+          <h3>"{this.state.randomBeer.name}" is available in the LCBO</h3>
+          {/* <h4>Can we recommend "{this.state.isAvailable}" as well?</h4> */}
           </div>)
       }
       
@@ -178,8 +203,19 @@ class BeerSearch extends Component {
     
     );
 
-    if (this.state.loading) {
-      screenDisplay = (
+    // if (this.state.loading) {
+    //   screenDisplay = (
+    //     <div>
+
+    //       <h1>Waiting To Get Loaded</h1>
+    //       <LoadingSpinner />
+    //     </div>
+    //   );
+    // }
+
+    if (this.state.loading && this.state.checkingAvailability) {
+      screenDisplay=null;
+      beerDisplayResult = (
         <div>
 
           <h1>Waiting To Get Loaded</h1>

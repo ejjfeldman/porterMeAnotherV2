@@ -125,7 +125,7 @@ class BeerForm extends Component {
       console.log("Rnadom", pageNumber)
         
       let oneBeer = narrowedArray[Math.floor(Math.random() * narrowedArray.length)];
-        console.log(oneBeer);
+      oneBeer.method="Narrowed Search"
         
         if(oneBeer === undefined){
           this.setState({
@@ -152,11 +152,22 @@ class BeerForm extends Component {
   }
 
   saveBeer=(beer)=>{
+    let hrefLink=null;
     console.log("beer", beer)
     const user = this.props.authUser;
     const uid = user.uid;
     console.log("user", uid)
     const beerName=beer.name;
+    if(beer.method=="Available at the LCBO"){
+      hrefLink = "http://www.lcbo.com/lcbo/search?searchTerm=" +beer.name.replace(/ /g, "+")
+      console.log(hrefLink)
+      beer.href=hrefLink;
+      console.log(beer)
+      
+      
+  }
+   
+
     const beerSelected ={
       beerName: beer
     };
@@ -260,9 +271,6 @@ saveResults=(listData)=>{
  });
 }
 
-findFromList=()=>{
-
-}
 
 closeResults = () => {
   this.setState({ displayForm: false, oneBeer: "", showMessage: false });
@@ -292,7 +300,7 @@ noAccountMessage=(beer)=>{
           )
       }else{
         toSaveMessage = (
-          <div><h4>Can we recommend "<span className="suggestedBeer" onClick={()=>this.saveBeer({name: this.state.suggestionBeer+"*"})}>{this.state.suggestionBeer}</span>"* instead?</h4>
+          <div><h4>Can we recommend "<span className="suggestedBeer" onClick={()=>this.saveBeer({name: this.state.suggestionBeer+"*", method: "Available at the LCBO"})}>{this.state.suggestionBeer}</span>"* instead?</h4>
            <p className="messageToSave">*click recommended beer to save to your account</p>
             </div>
           )

@@ -44,8 +44,9 @@ state={
             if(results){
                 const listResults = Object.values(results);
                 console.log(listResults)
+
                 const beerListResults=listResults.map(result=>{
-                    return {name: result.beerName.name, description:result.beerName.description}
+                    return {name: result.beerName.name, description:result.beerName.description, method:result.beerName.method, href: result.beerName.href}
                 })
                 this.setState({
                     beerNames: beerListResults
@@ -66,18 +67,17 @@ console.log(hrefLink)
     render(){
         let beerList = null;
         let beers = this.state.beerNames;
+ 
         if(this.state.beerNames){
             beerList=
             beers.map(beerName=>{
-                // return <div><li className="userBeerItems" key={beerName.name}><a href={"http://www.lcbo.com/lcbo/search?searchTerm=" + beerName.name.replace(/ /g, "+")} target="_blank"><b>{beerName.name}</b> {beerName.style}<br/>{beerName.description}</a></li><hr/></div>
-                return <div><li className="userBeerItems" key={beerName.name}><b>{beerName.name}</b> {beerName.style}<br/>{beerName.description}</li><hr/></div>
-                
+                console.log(beerName.href)
+                return <div><li className="userBeerItems" key={beerName.name}><a href={beerName.href} target="_blank"><b>{beerName.name}</b></a> {beerName.style}<br/><i>{beerName.method}</i><br/>{beerName.description}</li><hr/></div>
+            
             })
-        // beerList=
-        //     this.state.beerNames.map(beerName=>{
-        //         return <li>{beerName}</li>
-        //     })
-
+        }
+        if(this.state.beerNames){
+            console.log(this.state.beerNames)
         }
         
      
@@ -89,7 +89,7 @@ console.log(hrefLink)
 <ul className="userBeerList">
 {beerList}
  {/* {this.state.beerNames} */}
- <p classname="lcboMessage">*available in the LCBO</p>
+ <p className="lcboMessage">*click to find in the LCBO</p>
     </ul>
               
             </div>

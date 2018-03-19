@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import "./BeerSearch.css";
 import axios from "axios";
-import {auth, db, firebase} from '../firebase/index';
-import * as routes from '../Routes/routes';
 import {withRouter} from 'react-router-dom';
 
 import BeerButton from "../components/BeerButton/BeerButton";
@@ -21,15 +19,6 @@ class BeerSearch extends Component {
   };
 
   getRandom = () => {
-    console.log(
-      "randomBeer", this.state.randomBeer,
-      "displayResults", this.state.displayResults,
-      "loading", this.state.loading,
-      "suggestionBeer", this.state.suggestionBeer,
-      "isAvailable", this.state.isAvailable,
-      "checkingAvailability", this.state.checkingAvailability
-
-    )
     this.setState({ loading: true });
     axios.get("/randombeer").then(response => {
       let beerFetched = response.data;
@@ -43,16 +32,12 @@ class BeerSearch extends Component {
       if(this.props.authUser){
         this.saveBeer(this.state.randomBeer)
       }
-      
     });
-   
   };
 
   saveBeer=(beer)=>{
-    console.log("beer", beer)
     const user = this.props.authUser;
     const uid = user.uid;
-    console.log("user", uid)
     const beerName=beer.name;
     const beerSelected ={
       beerName: beer
@@ -76,31 +61,23 @@ class BeerSearch extends Component {
     .then(response => {
       console.log(response.data);
       if(!response.data.pager){
-        let resultBeer = response.data.charAt(0).toUpperCase()+response.data.slice(1)
-        console.log(resultBeer)
-         this.setState({
-        suggestionBeer: resultBeer,
-        checkingAvailability: false,
-        loading: false,
-
-          })
-        
+    
+        axios.get('/lcbo-beers')
+        .then(response=>{
+          console.log(response.data);
+          let resultBeer = response.data;
+          // this.saveResults(listData)
+          this.setState({
+            suggestionBeer: resultBeer,
+            checkingAvailability: false,
+            loading: false
+              })
+        })
       }else{
-        // let resultBeer = response.data.result;
-        // let results = resultBeer.map(result=>{
-        //   return result.name
-        // })
-        // console.log('found in lcbo')
-        // console.log(resultBeer[0])
-        // console.log(results.toString())
         console.log("beer",this.state.randomBeer)
         this.setState({
-        // isAvailable: results[0],
         checkingAvailability: false,
         loading: false,
-        
-        
-          
             })
       }
     });
@@ -118,26 +95,12 @@ class BeerSearch extends Component {
       checkingAvailability: true,})
   };
 
-  closeForm = () => {
-
-    this.setState({
-  
-    randomBeer: "",
-    displayResults: false,
-    loading: false,
-    suggestionBeer:'',
-    isAvailable: [],
-    checkingAvailability: true,})
-    
-  };
-
   render() {
     let beerDisplayResult = null;
     let beerName = "Mystery Beer - unnamed";
     let beerAbv = "Undefined";
     let beerDescription = "Let us know what you think of this beer! Unfortunately a description is not available at this time.";
     let beerIbu = "Undefined";
-    let userMessage = null;
 
     if (this.state.randomBeer.name) {
       if(this.state.checkingAvailability){
@@ -172,24 +135,21 @@ class BeerSearch extends Component {
           </Modal>
         );
         console.log(this.state.randomBeer);
-
       }else if(this.state.suggestionBeer){
         beerDisplayResult=(
           <div className="refineForm">
-            <button className="closeButton" onClick={this.closeForm}>X</button>          
+            <button className="closeButton" onClick={this.closeResults}>X</button>          
           <h3>Unfortunately the beer you are looking for is not available in the LCBO</h3>
           <h4>Can we recommend "{this.state.suggestionBeer}" instead?</h4>
           </div>)
       }else{
         beerDisplayResult=(
           <div className="refineForm">
-            <button className="closeButton" onClick={this.closeForm}>X</button>          
+            <button className="closeButton" onClick={this.closeResults}>X</button>          
           <h3>"{this.state.randomBeer.name}" is available in the LCBO</h3>
           {/* <h4>Can we recommend "{this.state.isAvailable}" as well?</h4> */}
           </div>)
       }
-      
-
     }
 
     let screenDisplay = (
@@ -203,16 +163,6 @@ class BeerSearch extends Component {
     
     );
 
-    // if (this.state.loading) {
-    //   screenDisplay = (
-    //     <div>
-
-    //       <h1>Waiting To Get Loaded</h1>
-    //       <LoadingSpinner />
-    //     </div>
-    //   );
-    // }
-
     if (this.state.loading && this.state.checkingAvailability) {
       screenDisplay=null;
       beerDisplayResult = (
@@ -225,8 +175,6 @@ class BeerSearch extends Component {
     }
 
 
-
-   
     return (
       <div className="App">
       {/* <NoUserMessage isLoggedIn={this.props.authUser} isLoading={this.state.loading}/> */}

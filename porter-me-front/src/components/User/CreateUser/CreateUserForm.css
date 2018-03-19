@@ -1,20 +1,21 @@
 .createUserForm{
     /* position: fixed; */
 
-    position: fixed;
+    /* position: fixed; */
     z-index: 500;
     background-color: white;
     width: 40%;
     border: 2px solid #ccc;
     box-shadow: 1px 1px 1px black;
     padding: 20px;
-    left: 30%;
+    /* left: 30%; */
     /* top: 35%; */
     box-sizing: border-box;
     transition: all 0.3s ease-out;
     margin: auto;
     text-align: center;
     margin-bottom: 1%;
+    max-width: 500px;
     /* height: 100%; */
 }
 

@@ -57,13 +57,21 @@ state={
 
     }
 
+    makeLcboHref=(beerName)=>{
+         const hrefLink = "http://www.lcbo.com/lcbo/search?searchTerm=" +beerName.replace(/ /g, "+")
+    
+console.log(hrefLink)
+    }
+
     render(){
         let beerList = null;
         let beers = this.state.beerNames;
         if(this.state.beerNames){
             beerList=
             beers.map(beerName=>{
+                // return <div><li className="userBeerItems" key={beerName.name}><a href={"http://www.lcbo.com/lcbo/search?searchTerm=" + beerName.name.replace(/ /g, "+")} target="_blank"><b>{beerName.name}</b> {beerName.style}<br/>{beerName.description}</a></li><hr/></div>
                 return <div><li className="userBeerItems" key={beerName.name}><b>{beerName.name}</b> {beerName.style}<br/>{beerName.description}</li><hr/></div>
+                
             })
         // beerList=
         //     this.state.beerNames.map(beerName=>{
@@ -81,6 +89,7 @@ state={
 <ul className="userBeerList">
 {beerList}
  {/* {this.state.beerNames} */}
+ <p classname="lcboMessage">*available in the LCBO</p>
     </ul>
               
             </div>

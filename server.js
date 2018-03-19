@@ -22,22 +22,22 @@ app.use(bodyParser.json())
 
 //fetching random beer
 app.get('/randombeer', (req, res)=>{
-    console.log(req.body)
+    // console.log(req.body)
     axios.get('http://api.brewerydb.com/v2/beer/random?key='+ key.breweryKey)
     .then(response=>{
         // console.log(response.data)
         const randomBeer = response.data.data
         res.send(randomBeer)
     })
-    console.log("get random")
 })
+
 //fetching specific beer
 app.post('/my-beer', (req, res)=>{
-    console.log(req, "req")
+    // console.log(req, "req")
     let formResults = req.body.formResults;
-    console.log("Type", formResults.Type)
+    // console.log("Type", formResults.Type)
     let pageNumber = Math.floor(Math.random()*10);
-    console.log("Rnadom", pageNumber)
+    // console.log("Rnadom", pageNumber)
 
     axios.get('http://api.brewerydb.com/v2/beers/?key='+key.breweryKey+'&abv='+formResults.Abv+ "&ibu=" +formResults.Ibu + "&p=" +pageNumber)
     .then(response=>{
@@ -60,11 +60,8 @@ app.post('/findbeer', (req, res)=>{
             res.send(beerSuggestion)
         }else{
             res.send(response.data)
-            // let beerId = response.data.result[0].id
-            // res.send(beerId)
+
         }
-        // const locationFound = response.data
-        // res.send(locationFound)
     })
     console.log("finding location")
 })
@@ -85,19 +82,8 @@ app.get('/lcbo-beers', (req, res)=>{
         availableRandomBeer = beerList[randomNumber]
         console.log(availableRandomBeer)
         res.send(availableRandomBeer )
-        // console.log(response.data.result[0].name)
     })
 })
-
-// app.get('/suggestion-beer', (req, res)=>{
-//     axios.get('https://beer-data.firebaseio.com/beerList.json')
-//     .then(response=>{
-//         console.log("beerList", response.data)
-//         // let beerList = response.data;
-//         // beerList
-//     })
-// })
-
 
 const port = 5000;
 

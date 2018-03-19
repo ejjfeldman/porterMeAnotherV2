@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-// import axios from 'axios';
-import {Switch, Route} from 'react-router-dom';
+import {Route} from 'react-router-dom';
 import {BrowserRouter as Router} from 'react-router-dom';
 
-// import BeerButton from './components/BeerButton/BeerButton';
-// import Modal from './components/Modal/Modal';
 import Header from './components/Header/Header';
 import BeerForm from './components/BeerForm/BeerForm';
 import BeerSearch from './BeerSearch/BeerSearch';
@@ -13,15 +10,12 @@ import NavBar from './components/NavBar/NavBar';
 import CreateUserForm from './components/User/CreateUser/CreateUserForm';
 
 
-// import SignUp from './components/User/CreateUser/CreateUserForm';
 import SignIn from './components/User/SignIn/SignIn';
 import PasswordForget from './components/User/Password/PasswordForget';
 import Account from './components/User/Account/Account';
 
-import BeerButton from './components/BeerButton/BeerButton';
-
 import * as routes from './Routes/routes';
-import {firebase, auth} from './firebase/index';
+import {firebase} from './firebase/index';
 
 
 class App extends Component {
@@ -33,7 +27,7 @@ class App extends Component {
       user:{
         email: null,
         name: null
-      }
+      },
     };
   }
 
@@ -82,15 +76,11 @@ render(){
         component={() => <PasswordForget />}
       />
 
-      {/* Switch back */}
       <Route
         exact path={routes.HOME}
-        component={() => <BeerSearch authUser={this.state.authUser}/>}
+        component={() => <BeerSearch authUser={this.state.authUser}
+        />}
       />
-      {/* <Route
-        exact path={routes.HOME}
-        component={() => <BeerButton/>}
-      />  */}
       <Route
         exact path={routes.ACCOUNT}
         component={() => <Account 
@@ -103,11 +93,6 @@ render(){
         component={() => <BeerForm authUser={this.state.authUser} 
         uid={this.state.uid}/>}
       />
-      {/* Delete/switch back */}
-      {/* <Route
-        exact path={routes.RANDOM_BEER}
-        component={() => <BeerSearch authUser={this.state.authUser} />}
-      /> */}
 
 
       </div>

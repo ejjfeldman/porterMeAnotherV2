@@ -71,7 +71,7 @@ const header = () => {
       <div className="bubble bubble22"></div>
     </div>
     <Link to="/"><div className="App-header jumbotron" id="header">
-          <h1>Porter Me Another</h1>
+          <h1>PORTER ME ANOTHER</h1>
           <p>Don't Wine, Have a Beer</p>
         </div>
     </Link>

@@ -30,6 +30,12 @@
     display: block;
 }
 
+.btnTitle{
+  position: relative;
+  top: -240px;
+  cursor: pointer;
+  /* font-size: 2em; */
+}
 
 @media (max-height: 800px) {
   .BeerButton-logo  {

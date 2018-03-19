@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Input from "../Input/Input";
-import Modal from "../Modal/Modal";
 import "./BeerForm.css";
-// import Backdrop from '../Backdrop/Backdrop';
 import Aux from '../Aux';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import * as routes from '../../Routes/routes';
-import {withRouter} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 
 class BeerForm extends Component {
   state = {
@@ -66,13 +64,13 @@ class BeerForm extends Component {
     checkingAvailability: true,
     suggestionBeer: '',
     tryingAgain: false,
-    notAvailable: false
+    notAvailable: false,
+    showMessage: false
   };
 
   orderHandler = event => {
     this.setState({loading: true})
     event.preventDefault();
-      // this.setState({loading:true});
     const formData = {};
     for (let formElementIdentifier in this.state.formValues) {
       formData[formElementIdentifier] = this.state.formValues[
@@ -104,7 +102,7 @@ class BeerForm extends Component {
     axios.post("/my-beer", { formResults: dataGrouped }).then(response => {
       console.log(response.data);
       let beerArray = response.data;
-      if(beerArray==""){
+      if(beerArray===""){
         this.setState({
           notAvailable: true,
           loading: false,
@@ -129,8 +127,7 @@ class BeerForm extends Component {
       let oneBeer = narrowedArray[Math.floor(Math.random() * narrowedArray.length)];
         console.log(oneBeer);
         
-        if(oneBeer == undefined){
-          console.log("sldfjwefwe")
+        if(oneBeer === undefined){
           this.setState({
             loading: true,
             tryingAgain: true,
@@ -150,11 +147,7 @@ class BeerForm extends Component {
       if(this.props.authUser){
         this.saveBeer(this.state.oneBeer)
       }
-
       }
-
-
-
     });
   }
 
@@ -176,6 +169,9 @@ class BeerForm extends Component {
     .catch(error => {
       console.log("error", error)
     });
+    this.setState({
+      showMessage: true
+    });
   }
 
   inputChangedHandler = (event, inputIdentifier) => {
@@ -196,7 +192,6 @@ class BeerForm extends Component {
   //FIX THIS
   closeForm = () => {
     this.props.history.push(routes.HOME);
-    // this.setState({displayResults: false, oneBeer: {}});
   };
 
 
@@ -223,21 +218,11 @@ class BeerForm extends Component {
             this.setState({
               suggestionBeer: resultBeer,
               checkingAvailability: false,
-              loading: false
+              loading: false,
+          showMessage: false,
+              
                 })
           })
-
-
-        // let resultBeer = response.data.charAt(0).toUpperCase()+response.data.slice(1)
-        // console.log(resultBeer)
-        // if(resultBeer==""){
-
-        // }
-        //  this.setState({
-        // suggestionBeer: resultBeer,
-        // checkingAvailability: false,
-        // loading: false
-        //   })
       }else{
         let resultBeer = response.data.result;
         let results = resultBeer.map(result=>{
@@ -247,6 +232,7 @@ class BeerForm extends Component {
         console.log(resultBeer[0])
         console.log(results)
         this.setState({
+          showMessage: false,
         isAvailable: results,
         checkingAvailability: false,
         loading: false
@@ -259,16 +245,6 @@ class BeerForm extends Component {
     
   }
 
-// getting lcbo beers from the lcbo api
-findList=()=>{
-  axios.get('/lcbo-beers')
-  .then(response=>{
-    console.log(response);
-    let listData = response.data;
-    this.saveResults(listData)
-  })
-  
-}
 
 // posting lcbo beers to firebase
 saveResults=(listData)=>{
@@ -289,20 +265,52 @@ findFromList=()=>{
 }
 
 closeResults = () => {
-  this.setState({ displayForm: false, oneBeer: "" });
+  this.setState({ displayForm: false, oneBeer: "", showMessage: false });
 };
+
+noAccountMessage=(beer)=>{
+  this.setState({showMessage: true})
+}
 
   render() {
     const formElementsArray = [];
     let displayBeer = null;
-    let beerStyle = '';
+    let beerStyle = 'undefined';
     let beerAbv="undefined";
     let beerIbu="undefined";
     let form = null;
     let abvText=null;
     let ibuText=null;
+    let toSaveMessage = null;
     
-    
+    if(this.props.authUser){
+      if(this.state.showMessage){
+        toSaveMessage = (
+          <div><h4>Can we recommend "<span className="suggestedBeer">{this.state.suggestionBeer}</span>"* instead?</h4>
+           <p className="messageToSave">*{this.state.suggestionBeer} has been <b>saved</b></p>
+            </div>
+          )
+      }else{
+        toSaveMessage = (
+          <div><h4>Can we recommend "<span className="suggestedBeer" onClick={()=>this.saveBeer({name: this.state.suggestionBeer+"*"})}>{this.state.suggestionBeer}</span>"* instead?</h4>
+           <p className="messageToSave">*click recommended beer to save to your account</p>
+            </div>
+          )
+      }
+      
+    }else if(this.state.showMessage && !this.props.authUser){
+      toSaveMessage =(
+        <div>
+          <h4>Can we recommend "<span className="suggestedBeer" onClick={()=>this.noAccountMessage({name: this.state.suggestionBeer})}>{this.state.suggestionBeer}</span>"* instead?</h4>        
+        <p className="messageToSave">*to save recommended beer, <Link to={routes.SIGN_IN}>sign in</Link> or <Link to={routes.SIGN_UP}>create an account</Link></p>
+        </div>
+      )
+    }else{
+      toSaveMessage =(
+        <h4>Can we recommend "<span className="suggestedBeer" onClick={()=>this.noAccountMessage({name: this.state.suggestionBeer})}>{this.state.suggestionBeer}</span>"* instead?</h4>                
+      )
+      
+    }
 
     for (let key in this.state.formValues) {
       formElementsArray.push({
@@ -315,6 +323,9 @@ closeResults = () => {
     if(this.state.oneBeer && !this.state.loading){
       if(this.state.checkingAvailability){
         displayBeer = this.state.oneBeer;
+        if(displayBeer.style.name){
+          beerStyle=displayBeer.style.name
+        }
         if(displayBeer.abv){
           beerAbv=displayBeer.abv
         }
@@ -328,8 +339,11 @@ closeResults = () => {
             <div className="beerRefineResult">
                 <h3>We found you the perfect beer!</h3>
                 <h2>{this.state.oneBeer.name}</h2>
+                <p><strong>Style: </strong>{beerStyle}</p>
+                
                 <p><strong>ABV: </strong>{beerAbv}%</p>
                 <p><strong>IBU: </strong>{beerIbu}</p>
+
                 <p>{this.state.oneBeer.description}</p>
                 
                 <button className="formButton" onClick={this.closeForm}>Start Over</button>
@@ -346,7 +360,8 @@ closeResults = () => {
           <div className="refineForm">
             <button className="closeButton" onClick={this.closeForm}>X</button>          
           <h3>Unfortunately the beer you are looking for is not available in the LCBO</h3>
-          <h4>Can we recommend "{this.state.suggestionBeer}" instead?</h4>
+         
+          {toSaveMessage}
           </div>)
       }else{
 
@@ -362,7 +377,7 @@ closeResults = () => {
       form = (
         <div className="refineForm">
           <form onSubmit={this.orderHandler} id="specificBeer">
-          <button className="closeButton" onClick={this.closeForm}>X</button>
+          <button className="closeButton" onClick={this.closeForm} style={{marginTop: "-40px"}} >X</button>
           <div className="formHeader">
           <h4>Find Your Perfect Beer</h4>
           <h5>Narrow your search</h5>

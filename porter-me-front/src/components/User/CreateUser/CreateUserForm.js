@@ -14,7 +14,7 @@ const SignUpPage = ({history})=>
 
 //user information
 const INITIAL_STATE={
-    username: '',
+    displayName: '',
     email: '',
     passwordOne: '',
     passwordTwo: '',
@@ -37,7 +37,7 @@ class CreateUserForm extends Component {
 
 onSubmit = (event)=> {
 const{
-    username,
+    displayName,
     email,
     passwordOne,
 }=this.state;
@@ -57,6 +57,7 @@ auth.doCreateUserWithEmailAndPassword(email, passwordOne)
     //     .catch(error=>{
     //         this.setState(byPropKey('error', error));
     //     });
+
     this.setState(()=> ({...INITIAL_STATE}));
     // var user = firebase.auth().currentUser;
     // console.log(user);
@@ -70,7 +71,7 @@ event.preventDefault();
 }
     render(){
         const {
-            username,
+            displayName,
             email,
             passwordOne,
             passwordTwo,
@@ -81,7 +82,7 @@ event.preventDefault();
             passwordOne !== passwordTwo ||
             passwordOne === "" ||
             email === '' ||
-            username === '';
+            displayName === '';
 
         return(
            <form onSubmit={this.onSubmit} className="createUserForm">
@@ -89,9 +90,9 @@ event.preventDefault();
             <div className="formInput">
 
             <input
-             value={username}
+             value={displayName}
              className="inputElement"
-             onChange={event => this.setState(byPropKey('username', event.target.value))}
+             onChange={event => this.setState(byPropKey('displayName', event.target.value))}
              type="text"
              placeholder="Full Name"
              />

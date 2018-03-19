@@ -1,8 +1,4 @@
 import {auth} from '../firebase/firebase';
-import * as routes from '../Routes/routes';
-import {withRouter} from 'react-router-dom';
-
-
 
 //Sign Up
 export const doCreateUserWithEmailAndPassword = (email, password)=>
@@ -15,6 +11,7 @@ auth.signInWithEmailAndPassword(email, password);
 //Sign out
 export const doSignOut = () =>{
     auth.signOut();
+    
 }
 
 

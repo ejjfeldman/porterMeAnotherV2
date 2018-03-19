@@ -14,6 +14,7 @@ class BeerButton extends Component {
         <header className="BeerButton-header">
         <img src={cap} className="BeerButton-logo" alt="BeerButton" 
         onClick={this.props.getRandomBeer}/>
+        <h2 className="btnTitle" onClick={this.props.getRandomBeer}>Beer Me</h2>
         <Link to={routes.REFINE_BEER} style={{ textDecoration: 'none' }}>
         <button className="button">Refine</button>
         </Link>

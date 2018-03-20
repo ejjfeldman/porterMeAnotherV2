@@ -39,6 +39,10 @@
     color: black;
 }
 
+/* .userBeerItems a:hover{
+    text-decoration-line: underline;
+} */
+
 .lcboMessage{
     float: right;
     position: sticky;

@@ -58,11 +58,6 @@ state={
 
     }
 
-    makeLcboHref=(beerName)=>{
-         const hrefLink = "http://www.lcbo.com/lcbo/search?searchTerm=" +beerName.replace(/ /g, "+")
-    
-console.log(hrefLink)
-    }
 
     render(){
         let beerList = null;

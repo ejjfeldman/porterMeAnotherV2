@@ -295,7 +295,7 @@ noAccountMessage=(beer)=>{
       if(this.state.showMessage){
         toSaveMessage = (
           <div><h4>Can we recommend "<span className="suggestedBeer">{this.state.suggestionBeer}</span>"* instead?</h4>
-           <p className="messageToSave">*{this.state.suggestionBeer} has been <b>saved</b></p>
+           <p className="messageToSave">*{this.state.suggestionBeer} has been <b><Link to={routes.ACCOUNT}>saved</Link></b></p>
             </div>
           )
       }else{

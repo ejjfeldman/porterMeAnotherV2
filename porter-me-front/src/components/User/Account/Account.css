@@ -2,19 +2,16 @@
     position: fixed;
     z-index: 500;
     background-color: white;
-    width: 50%;
+    width: 80%;
     border: 2px solid #ccc;
     box-shadow: 1px 1px 1px black;
-    padding: 20px;
-    left: 25%;
-    /* top: 35%; */
-    /* box-sizing: border-box; */
-    transition: all 0.3s ease-out;
-    /* margin: auto; */
+    /* padding: 20px; */
+    left: 10%;
+
     text-align: center;
     margin-bottom: 1%;
     overflow-y: scroll;
-    max-height: 40%;
+    max-height: 50%;
     
 }
 
@@ -49,4 +46,12 @@
     bottom: 0;
     background: white;
     
+}
+
+@media (max-width: 499px) {
+.Account{
+    width: 80%;
+    margin: auto;
+    left: 5%;
+}
 }

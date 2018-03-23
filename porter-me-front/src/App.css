@@ -11,3 +11,27 @@
 .App-intro {
   font-size: large;
 }
+
+/* universal form buttons -desktop-*/
+.formButton {
+  background-color: white;
+  color: black;
+  outline: none;
+  cursor: pointer;
+  font: inherit;
+  
+  padding: 10px;
+  margin: 2%;
+  font-weight: bold;
+  box-shadow: 2px 2px 2px black;
+}
+
+/* universal form buttons -mobile- */
+@media (max-width: 499px) {
+  .formButton{
+      /* padding: 5px; */
+      margin: 5px;
+      font-size: 90%;
+  }
+  
+  }

@@ -7,23 +7,33 @@
   width: 100%;
   opacity: 0;
   margin:0;
-  font-size: 24px;
+  /* font-size: 24px; */
+}
+
+.appTitle{
+  font-size: 4vh;
+}
+
+.appTagline{
+  font-size: 3vh;
+  
 }
 
 .mainHeader {
   height: 370px;
   margin: 0 auto;
   /* margin-top: 100px; */
-  /* overflow: hidden; */
+  overflow: hidden;
   position: relative;
   /* top: -50px; */
   /* right: 80px; */
-  /* width: 80%; */
+  width: 80%;
   max-width: 1060px;
 }
 
 .mainHeader div{ 
   position: absolute; 
+  
 }
 
   #beaker {
@@ -49,18 +59,7 @@
     /* min-width: 1060px; */
     margin: auto;
   }
-  
-  #liquid:after {
-    background-color: rgba(255, 255, 255, 0.25);
-    bottom: -10px;
-    content: '';
-    height: 200px;
-    /* left: -40px; */
-    position: absolute;
-    transform: rotate(30deg);
-    -webkit-transform: rotate(15deg);
-    width: 110px;
-  }
+
   
   #liquid .bubble {
     -webkit-animation-name: bubble;
@@ -218,7 +217,6 @@
     position: absolute;
     bottom: 30px;
     opacity: 0;
-  
     
   }
   
@@ -226,7 +224,7 @@
   .foam-5, .foam-6, .foam-7, .foam-8, .foam-9, .foam-10, .foam-11, .foam-12, .foam-13, .foam-14, .foam-15, .foam-16, .foam-17, .foam-18, .foam-19, .foam-20, .foam-21, .foam-22, .foam-23, .foam-24, .foam-25,.foam-26, .foam-27, .foam-28, .foam-29, .foam-30, .foam-31, .foam-32, .foam-33, .foam-34 {
     float: left;
     position: absolute;
-    z-index: 999;
+    z-index: 800;
     width: 50px;
     height: 50px;
     border-radius: 30px;
@@ -298,31 +296,31 @@
     top: -30px;
     left: 480px;
   }
+  .foam-17 {
+    top: -35px;
+    left: 520px;
+  }
+  .foam-18 {
+    top: -30px;
+    left: 550px;
+  }
+  .foam-19 {
+    top: -30px;
+    left: 585px;
+  }
+  .foam-20 {
+    top: -25px;
+    left: 620px;
+  }
 
 
   
   @media (min-width: 700px){
     #liquid {
-      min-width: 1060px;
+      min-width: 100%;
 
     }
 
-    .foam-17 {
-      top: -35px;
-      left: 520px;
-    }
-    .foam-18 {
-      top: -30px;
-      left: 550px;
-    }
-    .foam-19 {
-      top: -30px;
-      left: 585px;
-    }
-    .foam-20 {
-      top: -25px;
-      left: 620px;
-    }
     .foam-21 {
       top: -35px;
       left: 650px;
@@ -380,26 +378,24 @@
       left: 1020px;
     } 
   }
-  @media (max-width: 450px){
+  @media (max-width: 699px){
     .mainHeader {
-
-      width: 300px;
-
+      width: 90%;
+    }
+    #liquid{
+      width: 100%;
     }
   }
 
-  /* @media (max-width: 700px){
-    .mainHeader {
-
-      width: 510px;
-
+  @media(min-height: 600px){
+    .appTitle{
+      font-size: 36px;
     }
-  } */
-
-  /* @media (max-width: 1200px){
-    #beaker {
-
-      width: 900px;
-
+    .appTagline{
+      font-size: 24px;
     }
-  } */
+  }
+  
+  @media (max-width: 499px) {
+
+  }

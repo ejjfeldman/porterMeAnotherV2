@@ -23,7 +23,6 @@
     cursor: pointer;
     font: inherit;
     padding: 10px;
-    /* margin: 20px; */
     margin: 20px auto;
     font-weight: bold;
     box-shadow: 2px 2px 2px black;
@@ -49,3 +48,16 @@
   }
 }
 
+
+@media (max-width: 499px) {
+  .RandomBeerButton  {
+    margin: -30px auto;
+  }
+  /* .BeerButton-logo{
+    height: 80%;
+  } */
+
+.button{
+  margin: -30px auto;
+}
+}

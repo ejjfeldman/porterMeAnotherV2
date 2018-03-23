@@ -16,9 +16,10 @@ state={
 
     componentDidMount(){
         auth.onAuthStateChanged(function(user){
+            const currentUser = user
             if(user){
                 
-                const currentUser = user
+                
                 console.log(currentUser)
                 // this.setState({
                 //     user: {
@@ -33,9 +34,18 @@ state={
             
         })
         console.log(auth.currentUser)
-        const user = this.props.authUser;
-        console.log(this.props.user.email)
+        const user=auth.currentUser;
+        // const email=user.email;
+        // const user = this.props.authUser;
+        // console.log(email)
         const uid = this.props.uid;
+        // this.setState({
+        //     user: {
+        //         name: currentUser.displayName,
+        //         uid: currentUser.uid,
+        //         email: currentUser.email
+        //     }
+        // })
 
         axios.get("https://beer-data.firebaseio.com/"+uid+".json")
         .then(response=>{
@@ -79,7 +89,7 @@ state={
         return(
             <div className="Account">
                 <h2>User Information</h2>
-                <p>{this.props.user.email}</p>
+                <p>{this.props.email}</p>
 <h3 className="beerListing">Beers you have viewed</h3>
 <ul className="userBeerList">
 {beerList}

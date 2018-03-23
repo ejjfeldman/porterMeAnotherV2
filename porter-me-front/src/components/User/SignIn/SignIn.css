@@ -42,7 +42,7 @@
     margin: auto;
 }
 
-.formButton {
+/* .formButton {
     background-color: white;
     color: black;
     outline: none;
@@ -52,6 +52,11 @@
     margin: 20px;
     font-weight: bold;
     box-shadow: 2px 2px 2px black;
-    /* display: block; */
 
+} */
+
+@media(max-width: 499px){
+    .signInForm{
+        width: 80%;
+    }
 }

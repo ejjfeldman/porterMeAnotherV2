@@ -6,8 +6,10 @@ import * as routes from '../Routes/routes';
 
 import BeerButton from "../components/BeerButton/BeerButton";
 import Modal from "../components/Modal/Modal";
+import BeerResult from '../components/BeerResult/BeerResult';
 import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
 import NoUserMessage from "../components/NoUserMessage/NoUserMessage";
+import {databaseURL} from '../firebase/firebase';
 
 class BeerSearch extends Component {
   state = {
@@ -15,12 +17,11 @@ class BeerSearch extends Component {
     displayResults: false,
     loading: false,
     suggestionBeer:'',
-    isAvailable: [],
     checkingAvailability: true,
     showMessage: false
-    
   };
 
+  //Get random beer with no parameters
   getRandom = () => {
     this.setState({ loading: true });
     axios.get("/randombeer").then(response => {
@@ -32,34 +33,27 @@ class BeerSearch extends Component {
         displayResults: true,
         loading: false
       });
-      console.log(this.state.randomBeer);
       if(this.props.authUser){
         this.saveBeer(this.state.randomBeer)
       }
     });
   };
 
+  //if user is logged in, save beer to account
   saveBeer=(beer)=>{
     let hrefLink=null;
-    
     const user = this.props.authUser;
     const uid = user.uid;
-
     console.log(beer)
     if(beer.method=="Available at the LCBO"){
       hrefLink = "http://www.lcbo.com/lcbo/search?searchTerm=" +beer.name.replace(/ /g, "+")
-      console.log(hrefLink)
       beer.href=hrefLink;
-      console.log(beer)
-      
-      
   }
-    // const beerName=beer.name;
     const beerSelected ={
       beerName: beer
     };
     axios
-    .post("https://beer-data.firebaseio.com/"+uid+".json", beerSelected)
+    .post(databaseURL+uid+".json", beerSelected)
     .then(response => {
       console.log('response received')
     })
@@ -71,6 +65,7 @@ class BeerSearch extends Component {
     });
   }
 
+  //find if beer is available in the LCBO
   findLocation=(beer)=>{
     console.log(beer)
     this.setState({
@@ -80,12 +75,10 @@ class BeerSearch extends Component {
     .then(response => {
       console.log(response.data);
       if(!response.data.pager){
-    
         axios.get('/lcbo-beers')
         .then(response=>{
           console.log(response.data);
           let resultBeer = response.data;
-          // this.saveResults(listData)
           this.setState({
             suggestionBeer: resultBeer,
             checkingAvailability: false,
@@ -95,10 +88,13 @@ class BeerSearch extends Component {
         })
       }else{
         console.log("beer",this.state.randomBeer)
+        // let foundInLcbo = this.state.randomBeer;
+        // foundInLcbo.method = ["Random Search", "Available in the LCBO"];
         this.setState({
         checkingAvailability: false,
         loading: false,
-        showMessage: false
+        showMessage: false,
+        // randomBeer: foundInLcbo
         
             })
       }
@@ -106,14 +102,11 @@ class BeerSearch extends Component {
   }
 
   closeResults = () => {
-    // this.setState({ displayResults: false, randomBeer: '' });
     this.setState({
-  
       randomBeer: "",
       displayResults: false,
       loading: false,
       suggestionBeer:'',
-      isAvailable: [],
       checkingAvailability: true,
     showMessage:false})
   };
@@ -124,12 +117,9 @@ class BeerSearch extends Component {
 
   render() {
     let beerDisplayResult = null;
-    let beerName = "Mystery Beer - unnamed";
-    let beerAbv = "Undefined";
-    let beerDescription = "Let us know what you think of this beer! Unfortunately a description is not available at this time.";
-    let beerIbu = "Undefined";
     let toSaveMessage = "null";
 
+//Saving suggested beer to account and showing message
     if(this.props.authUser){
       if(this.state.showMessage){
         toSaveMessage = (
@@ -149,7 +139,7 @@ class BeerSearch extends Component {
       toSaveMessage =(
         <div>
           <h4>Can we recommend "<span className="suggestedBeer" onClick={()=>this.noAccountMessage({name: this.state.suggestionBeer})}>{this.state.suggestionBeer}</span>"* instead?</h4>        
-        <p className="messageToSave">*to save recommended beer, <Link to={routes.SIGN_IN}>sign in</Link> or <Link to={routes.SIGN_UP}>create an account</Link></p>
+        <p className="messageToSaveNoUser">*to save recommended beer, <Link to={routes.SIGN_IN}>sign in</Link> or <Link to={routes.SIGN_UP}>create an account</Link></p>
         </div>
       )
     }else{
@@ -158,57 +148,53 @@ class BeerSearch extends Component {
       )
       
     }
-
+//display results of found beer or its availability in the LCBO
     if (this.state.randomBeer.name) {
       if(this.state.checkingAvailability){
-        let displayBeer = this.state.randomBeer;
-        if (displayBeer.name) {
-          beerName = displayBeer.name;
-        }
-        if (displayBeer.abv) {
-          beerAbv = displayBeer.abv;
-        } 
-        if (displayBeer.description) {
-          beerDescription = displayBeer.description;
-        }
-        if (displayBeer.ibu) {
-          beerIbu = displayBeer.ibu;
-        }
         beerDisplayResult = (
           <Modal
           show={this.state.displayResults}
           modalClosed={this.closeResults}
           randomBeer={this.state.randomBeer}
         > 
-          <div>
-            <button className="closeButton" onClick={this.closeResults}>X</button> 
-            <h2>{beerName}</h2>
-            <p><strong>Description: </strong>{beerDescription}</p>
-            <p><strong>ABV: </strong>{beerAbv}</p>
-            <p><strong>IBU: </strong>{beerIbu}</p>
-            <button className="formButton" onClick={this.closeResults}>Start Over</button>
-            <button className="formButton" onClick={()=>this.findLocation(beerName)}>Find it</button>
-          </div>
-          </Modal>
+        <BeerResult
+        oneBeer={this.state.randomBeer}
+        closeForm={this.closeResults}
+        findSpecificBeer={this.getRandom}
+        findLocation={this.findLocation}
+        />
+         </Modal>
+
         );
-        console.log(this.state.randomBeer);
       }else if(this.state.suggestionBeer){
         beerDisplayResult=(
-          <div className="refineForm">
-            <button className="closeButton" onClick={this.closeResults}>X</button>          
+          <Modal
+          show={this.state.displayResults}
+          modalClosed={this.closeResults}
+          randomBeer={this.state.randomBeer}> 
+          <div>
+            {/* <button className="closeButton" onClick={this.closeResults}>X</button>           */}
           <h3>Unfortunately the beer you are looking for is not available in the LCBO</h3>
           {toSaveMessage}
-          </div>)
+          </div>
+          </Modal>)
       }else{
         beerDisplayResult=(
-          <div className="refineForm">
-            <button className="closeButton" onClick={this.closeResults}>X</button>          
+          <Modal
+          show={this.state.displayResults}
+          modalClosed={this.closeResults}
+          randomBeer={this.state.randomBeer}
+        > 
+          <div>
+            {/* <button className="closeButton" onClick={this.closeResults}>X</button>           */}
           <h3>"{this.state.randomBeer.name}" is available in the LCBO</h3>
-          {/* <h4>Can we recommend "{this.state.isAvailable}" as well?</h4> */}
-          </div>)
+          </div>
+          </Modal>
+          )
       }
     }
 
+//Display Beer button
     let screenDisplay = (
       <div>
     <NoUserMessage isLoggedIn={this.props.authUser} isLoading={this.state.loading}/>
@@ -234,11 +220,9 @@ class BeerSearch extends Component {
 
     return (
       <div className="App">
-      {/* <NoUserMessage isLoggedIn={this.props.authUser} isLoading={this.state.loading}/> */}
         {screenDisplay}
 
-          {beerDisplayResult}
-
+        {beerDisplayResult}
       </div>
     );
   }

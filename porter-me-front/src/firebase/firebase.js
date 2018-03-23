@@ -12,13 +12,15 @@ const config = {
   // if (!firebase.apps.length){
     firebase.initializeApp(config);
   // }
- 
+
 const db = firebase.database();
 const auth = firebase.auth();
+const databaseURL = config.databaseURL + '/';
 
 export{
     db,
     auth,
+    databaseURL
 };
 
 export default firebase;

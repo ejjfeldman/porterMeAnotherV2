@@ -9,6 +9,8 @@ import BeerSearch from './BeerSearch/BeerSearch';
 import NavBar from './components/NavBar/NavBar';
 import SideNav from './components/NavBar/SideNav/SideNav';
 import CreateUserForm from './components/User/CreateUser/CreateUserForm';
+import BeerFacts from './components/BeerFacts';
+import BeerNearYou from './components/BeerNearYou';
 
 
 import SignIn from './components/User/SignIn/SignIn';
@@ -57,20 +59,6 @@ sideDrawerToggleHandler=()=>{
       console.log(this.state.email)
     
     });
-    // if(authUser){
-    //   this.setState(()=>({ 
-    //     authUser, 
-    //     uid: authUser.uid, 
-    //     user:{
-    //       email: authUser.email,
-    //       name: authUser.displayName
-    //     }
-    //     }))
-    // // this.getUserBeers(this.state.uid)
-      
-    // }
-    // const uid 
-  // })
 }
 
 
@@ -123,7 +111,14 @@ render(){
       component={()=> <BeerResult/>}
           />
       </Switch>
-      
+      <Route
+      exact path={routes.FACTS}
+      component={()=> <BeerFacts/>}
+      />
+      <Route
+      exact path={routes.LOCATING}
+      component={()=> <BeerNearYou/>}
+      />
 
       </div>
       

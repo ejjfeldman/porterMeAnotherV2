@@ -1,5 +1,4 @@
 .signInForm{
-    /* position: fixed; */
     z-index: 500;
     background-color: white;
     width: 40%;
@@ -7,14 +6,12 @@
     box-shadow: 1px 1px 1px black;
     padding: 20px;
     left: 30%;
-    /* top: 35%; */
     box-sizing: border-box;
     transition: all 0.3s ease-out;
     margin: auto;
     text-align: center;
     margin-bottom: 1%;
     max-width: 500px;
-    /* height: 100%; */
 }
 
 .formInput {
@@ -22,13 +19,6 @@
     padding: 10px;
     box-sizing: border-box;
 }
-/* 
-.inputLabel {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 8px;
-    float: left;
-} */
 
 .inputElement {
     outline: none;
@@ -41,19 +31,6 @@
     box-sizing: border-box;
     margin: auto;
 }
-
-/* .formButton {
-    background-color: white;
-    color: black;
-    outline: none;
-    cursor: pointer;
-    font: inherit;
-    padding: 10px;
-    margin: 20px;
-    font-weight: bold;
-    box-shadow: 2px 2px 2px black;
-
-} */
 
 @media(max-width: 499px){
     .signInForm{

@@ -20,15 +20,4 @@ class signOutButton extends Component{
     }
 }
 
-
-// const signOutButton = () =>{
-
-//     return(
-    
-// <button type="button" className="signOutBtn" onClick={auth.doSignOut}>Sign Out</button> 
-//     )
-// }
-
-
 export default withRouter(signOutButton);
-// export default signOutButton;

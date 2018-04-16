@@ -5,14 +5,11 @@
     width: 80%;
     border: 2px solid #ccc;
     box-shadow: 1px 1px 1px black;
-    /* padding: 20px; */
     left: 10%;
-
     text-align: center;
     margin-bottom: 1%;
     overflow-y: scroll;
     max-height: 50%;
-    
 }
 
 .userBeerList{
@@ -24,7 +21,6 @@
     text-decoration: none;
     text-align: left;
     padding: 1%;
-    /* margin:  */
 }
 
 .beerListing{
@@ -36,10 +32,6 @@
     color: black;
 }
 
-/* .userBeerItems a:hover{
-    text-decoration-line: underline;
-} */
-
 .lcboMessage{
     float: right;
     position: sticky;
@@ -49,9 +41,9 @@
 }
 
 @media (max-width: 499px) {
-.Account{
-    width: 80%;
-    margin: auto;
-    left: 5%;
-}
+    .Account{
+        width: 80%;
+        margin: auto;
+        left: 5%;
+    }
 }

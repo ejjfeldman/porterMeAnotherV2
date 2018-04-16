@@ -59,31 +59,29 @@ render(){
 
 return(
     <form  onSubmit={this.onSubmit}>
-    <h2>Sign In</h2>
-    <div className="formInput">
-    <input
-        className="inputElement"
-        value={email}
-        onChange={event=> this.setState(byPropKey('email', event.target.value))}
-        type="text"
-        placeholder="Email Address"
-    />
-    </div>
-    <div className="formInput">
-    <input
-        className="inputElement"
-        value={password}
-        onChange={event=> this.setState(byPropKey('password', event.target.value))}
-        type="password"
-        placeholder="Password"
-    />
-    </div>
-    <button className="formButton" disabled={isInvalid} type="submit">Sign In</button>
-    
+        <h2>Sign In</h2>
+        <div className="formInput">
+            <input
+                className="inputElement"
+                value={email}
+                onChange={event=> this.setState(byPropKey('email', event.target.value))}
+                type="text"
+                placeholder="Email Address"
+            />
+        </div>
+        <div className="formInput">
+            <input
+                className="inputElement"
+                value={password}
+                onChange={event=> this.setState(byPropKey('password', event.target.value))}
+                type="password"
+                placeholder="Password"
+            />
+        </div>
+        <button className="formButton" disabled={isInvalid} type="submit">Sign In</button>
+        
     </form>
-)
-}
-
+    )}
 }
 
 export default withRouter(SignInPage);

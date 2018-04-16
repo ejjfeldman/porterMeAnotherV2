@@ -69,7 +69,6 @@ class BeerForm extends Component {
     tryingAgain: false,
     notAvailable: false,
     showMessage: false,
-    // redirect: false
   };
 
   //handling form input
@@ -189,7 +188,6 @@ class BeerForm extends Component {
     console.log(this.state.formValues);
   };
 
-  //FIX THIS
   closeForm = () => {
     this.props.history.push(routes.HOME);
   };
@@ -202,18 +200,15 @@ class BeerForm extends Component {
     .then(response => {
       console.log(response.data);
       if(!response.data.pager){
-    
           axios.get('/lcbo-beers')
           .then(response=>{
             console.log(response.data);
             let resultBeer = response.data;
-            // this.saveResults(listData)
             this.setState({
               suggestionBeer: resultBeer,
               checkingAvailability: false,
               loading: false,
-          showMessage: false,
-              
+              showMessage: false,
                 })
           })
       }else{
@@ -250,7 +245,6 @@ saveResults=(listData)=>{
    console.log('error', error)
  });
 }
-
 
 closeResults = () => {
   this.setState({ displayForm: false, oneBeer: "", showMessage: false });

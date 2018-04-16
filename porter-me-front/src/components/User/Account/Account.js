@@ -18,26 +18,13 @@ state={
         auth.onAuthStateChanged(function(user){
             const currentUser = user
             if(user){
-                
-                
                 console.log(currentUser)
-                // this.setState({
-                //     user: {
-                //         name: currentUser.displayName,
-                //         uid: currentUser.uid,
-                //         email: currentUser.email
-                //     }
-                // })
             }else{
                 console.log("fail")
             }
-            
         })
         console.log(auth.currentUser)
         const user=auth.currentUser;
-        // const email=user.email;
-        // const user = this.props.authUser;
-        // console.log(email)
         const uid = this.props.uid;
         // this.setState({
         //     user: {
@@ -78,7 +65,6 @@ state={
             beers.map(beerName=>{
                 console.log(beerName.href)
                 return <div><li className="userBeerItems" key={beerName.name}><a href={beerName.href} target="_blank"><b>{beerName.name}</b></a> {beerName.style}<br/><i>{beerName.method}</i><br/>{beerName.description}</li><hr/></div>
-            
             })
         }
         if(this.state.beerNames){
@@ -87,17 +73,15 @@ state={
         
      
         return(
-            <div className="Account">
-                <h2>User Information</h2>
-                <p>{this.props.email}</p>
-<h3 className="beerListing">Beers you have viewed</h3>
-<ul className="userBeerList">
-{beerList}
- {/* {this.state.beerNames} */}
- <p className="lcboMessage">*click to find in the LCBO</p>
-    </ul>
-              
-            </div>
+    <div className="Account">
+        <h2>User Information</h2>
+        <p>{this.props.email}</p>
+        <h3 className="beerListing">Beers you have viewed</h3>
+            <ul className="userBeerList">
+                {beerList}
+                <p className="lcboMessage">*click to find in the LCBO</p>
+            </ul>
+    </div>
 
         )
     }

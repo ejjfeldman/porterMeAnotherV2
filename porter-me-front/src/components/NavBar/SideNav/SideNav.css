@@ -38,23 +38,16 @@
 
 .sideNavItem{
     text-decoration: none;
-    /* display: inline-block; */
-    /* float: left;
-    margin: 0.8%;
-    padding-bottom: 1%; */
     font-weight: bold;
     color: black;
     font-size: 20px;
-
 }
 
 a.sideNavItem{
     text-decoration: none;
-    
 }
 
 .active{
     text-decoration: underline;
-   color: #edaf32;
-
+    color: #edaf32;
 }

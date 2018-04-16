@@ -1,12 +1,10 @@
 .refineForm{
-    /* position: fixed; */
     z-index: 500;
     background-color: white;
     width: 45%;
     border: 2px solid #ccc;
     box-shadow: 1px 1px 1px black;
     padding: 20px;
-    /* left: 30%; */
     top: 35%;
     box-sizing: border-box;
     transition: all 0.3s ease-out;
@@ -18,42 +16,19 @@
     overflow-y: auto;
 }
 
-/* .formButton {
-    background-color: white;
-    color: black;
-    outline: none;
-    cursor: pointer;
-    font: inherit;
-    padding: 10px;
-    
-    font-weight: bold;
-    box-shadow: 2px 2px 2px black; */
-    /* display: block; */
-/* margin: 10px; */
-/* } */
-
 .closeButton {
     background-color: white;
     color: black;
     border: none;
     cursor: pointer;
     font: inherit;
-    /* padding: 10px; */
-    /* margin-top: -40px; */
     font-weight: bold;
-    /* box-shadow: 1px 1px 1px black; */
     float: left;
-    /* position: absolute; */
     position: relative;
 
 }
 
-/* .formHeader{
-    font-size: 1.3em;
-} */
-
 .spinnerHeader{
-
     text-align: center;
 }
 

@@ -1,10 +1,8 @@
 .BeerButton {
     text-align: center;
-
   }
   
   .BeerButton-logo {
-    /* margin-top: -80px; */
     cursor: pointer;
     height: 500px;
     animation: BeerButton-logo-spin infinite 20s linear;
@@ -33,7 +31,6 @@
   position: relative;
   top: -240px;
   cursor: pointer;
-  /* font-size: 2em; */
 }
 
 @media (max-height: 800px) {
@@ -53,9 +50,6 @@
   .RandomBeerButton  {
     margin: -30px auto;
   }
-  /* .BeerButton-logo{
-    height: 80%;
-  } */
 
 .button{
   margin: -30px auto;

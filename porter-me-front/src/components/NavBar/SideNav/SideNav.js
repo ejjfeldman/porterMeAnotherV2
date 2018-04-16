@@ -64,8 +64,16 @@ const sideNav = props => {
             Home
           </Link>
         </li>
-        <li onClick={props.closed}>Beer Facts</li>
-        <li onClick={props.closed}>Beer Near You</li>
+        <li onClick={props.closed}>
+          <Link to={routes.FACTS}>
+            Beer Facts
+          </Link>
+        </li>
+        <li onClick={props.closed}>
+          <Link to={routes.LOCATING}>
+            Beer Near You
+          </Link>
+        </li>
         <li onClick={props.closed}>
           <Link to={routes.SIGN_IN} >
             Sign In

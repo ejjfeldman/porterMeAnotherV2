@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./BeerSearch.css";
 import axios from "axios";
 import {Link, withRouter} from 'react-router-dom';
 import * as routes from '../Routes/routes';
@@ -88,14 +87,10 @@ class BeerSearch extends Component {
         })
       }else{
         console.log("beer",this.state.randomBeer)
-        // let foundInLcbo = this.state.randomBeer;
-        // foundInLcbo.method = ["Random Search", "Available in the LCBO"];
         this.setState({
         checkingAvailability: false,
         loading: false,
         showMessage: false,
-        // randomBeer: foundInLcbo
-        
             })
       }
     });

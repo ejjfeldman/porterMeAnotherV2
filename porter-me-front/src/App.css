@@ -1,7 +1,5 @@
 .App {
   text-align: center;
-
-  /* background-color: #222; */
 }
 
 .App-title {
@@ -34,4 +32,9 @@
       font-size: 90%;
   }
   
+  }
+
+
+  .comingSoon{
+    text-align: center;
   }

@@ -10,7 +10,6 @@ class BeerResult extends Component{
         let beerName = "Mystery Beer - unnamed";
         let beerDescription = "Let us know what you think of this beer! Unfortunately a description is not available at this time.";
     
-
         displayBeer = this.props.oneBeer;
         if (displayBeer.name) {
             beerName = displayBeer.name;
@@ -40,7 +39,6 @@ class BeerResult extends Component{
                 <button className="formButton" onClick={this.props.closeForm}>Start Over</button>
                 <button className="formButton" onClick={()=>this.props.findSpecificBeer(this.props.groupedData)}>Get Another</button>
                 <button className="formButton" onClick={()=>this.props.findLocation(this.props.oneBeer.name)}>Locate it</button>
-            
                 {/* <p>To save your beer, create an account or sign in</p> */}
                 </div>
             </div>

@@ -1,6 +1,4 @@
 import React from 'react';
-// import './LoadingSpinner.css';
-// import SignIn from '../User/SignIn/SignIn';
 import {Link} from 'react-router-dom';
 import './NoUserMessage.css';
 import * as routes from '../../Routes/routes';

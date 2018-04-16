@@ -18,9 +18,9 @@ const navBar = (props) => (
   )
 
     
-    const NavigationAuth = () =>(
-      <ul>
-        <span className="desktopNav">
+const NavigationAuth = () =>(
+  <ul>
+    <span className="desktopNav">
       <li>
         <Link to={routes.HOME} className="navItem">
           Home
@@ -31,33 +31,49 @@ const navBar = (props) => (
           Account
         </Link>
       </li>
-<li className="navItem">Beer Facts</li>
-<li className="navItem">Beer Near You</li>
-</span>
+      <li >
+        <Link to={routes.FACTS} className="navItem" >
+          Beer Facts
+        </Link>
+      </li>
+      <li>
+      <Link to={routes.LOCATING} className="navItem" >        
+          Beer Near You
+      </Link>    
+      </li>
+    </span>
       <li>
         <SignOutButton/>
       </li>
-    </ul>
-    )
+  </ul>
+)
 
-  const NavigationNonAuth = () =>
+const NavigationNonAuth = () =>
   <ul>
     <span className="desktopNav">
-          <li>
+      <li>
         <Link to={routes.HOME} className="navItem">
           Home
         </Link>
       </li>
-      <li className="navItem">Beer Facts</li>
-<li className="navItem">Beer Near You</li>
-  <li >
-  <Link to={routes.SIGN_IN} className="navItem" >
-    Sign In
-  </Link>
-</li>
-</span>
+      <li >
+        <Link to={routes.FACTS} className="navItem" >
+          Beer Facts
+        </Link>
+      </li>
+      <li>
+        <Link to={routes.LOCATING} className="navItem" >        
+            Beer Near You
+        </Link>    
+      </li>
+      <li >
+        <Link to={routes.SIGN_IN} className="navItem" >
+          Sign In
+        </Link>
+      </li>
+    </span>
   </ul>
 
 
 
-export default navBar;
+  export default navBar;
